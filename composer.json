@@ -6,7 +6,7 @@
   "license": "MIT",
   "authors": [
     {
-      "name": "Fanap Soft SDK Develop Team",
+      "name": "Elham Keshtgar",
       "email": "podsdk@fanap.ir"
     }
   ],
@@ -14,11 +14,11 @@
 
   "require": {
     "ext-openssl": "*",
-    "pod-sdk/pod-base-service" : "^1.0"
+    "pod-sdk/pod-base-service" : "^1.0.1"
   },
   "autoload": {
     "psr-4": {
-      "Pod\\Billing\\Service\\" : "models/"
+      "Pod\\Billing\\Service\\" : "src/"
     }
   }
 }

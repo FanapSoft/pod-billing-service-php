@@ -233,14 +233,7 @@ return
             'baseUri' => 'PLATFORM-ADDRESS',
             'subUri' => 'nzh/biz/enableDealerProductPermission',
             'method' => 'POST'
-        ],
-
-        //  tag: common, token: API_TOKEN
-        'guildCode' => [
-            'baseUri' => 'PLATFORM-ADDRESS',
-            'subUri' => 'nzh/guildList',
-            'method' => 'GET'
-        ],
+        ]
     ];
 
 

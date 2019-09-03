@@ -1,54 +1,4 @@
 {
-    "getOtt": {
-        "header": {
-            "type": "object",
-            "properties": {
-                "_token_": {
-                    "type": "string",
-                     "minLength": 1
-                },
-                "_token_issuer_": {
-                    "type": "integer"
-                }
-            },
-            "required": [
-                "_token_",
-                "_token_issuer_"
-            ],
-            "additionalProperties": true
-        },
-        "query": {
-            "type": "object",
-            "properties": {},
-            "additionalProperties": false
-        }
-    },
-
-    "getOttFromPrivateCallAddress": {
-        "header": {
-            "type": "object",
-            "properties": {
-                "_token_": {
-                    "type": "string",
-                     "minLength": 1
-                },
-                "_token_issuer_": {
-                    "type": "integer"
-                }
-            },
-            "required": [
-                "_token_",
-                "_token_issuer_"
-            ],
-            "additionalProperties": true
-        },
-        "query": {
-            "type": "object",
-            "properties": {},
-            "additionalProperties": false
-        }
-    },
-
     "issueInvoice": {
         "header": {
             "type": "object",
@@ -75,20 +25,26 @@
             "type": "object",
             "properties": {
                 "redirectURL": {
-                    "type": "string"
+                    "type": "string",
+                    "title": "آدرس فراخوانی صادر کننده فاکتور"
                 },
                 "userId": {
-                    "type": "integer"
+                    "type": "integer",
+                    "title": "شناسه کاربری مربوط به مشتری"
                 },
                 "billNumber": {
-                    "type": "string"
+                    "type": "string",
+                    "title": "شماره قبض"
                 },
                 "description": {
-                    "type": "string"
+                    "type": "string",
+                    "title": "توضیحات فاکتور"
                 },
                 "deadline": {
                     "type": "string",
-                    "pattern": "[1][3-5][0-9]{2}\/([1-9]|0[1-9]|1[0-2])\/([1-2][0-9]|0[1-9]|3[0-1]|[1-9])"
+                    "pattern": "[1][3-5][0-9]{2}\/([1-9]|0[1-9]|1[0-2])\/([1-2][0-9]|0[1-9]|3[0-1]|[1-9])",
+                    "title": "تاریخ سر رسید به صورت شمسی",
+                    "pattern_description": "تاریخ را به صورت yyyy/mm/dd وارد کنید"
                 },
                 "productList": {
                     "type": "array",
@@ -96,21 +52,27 @@
                         "type": "array",
                         "properties": {
                             "productId": {
-                                "type": "integer"
+                                "type": "integer",
+                                "title": "شناسه محصول",
+                                "description": "در صورتی که محصول در پلتفرم پاد ثبت نشده است مقدار 0 ارسال شود"
                             },
                             "price": {
                                 "oneOf": [
                                     { "type": "number", "minimum": 0.00001 },
                                     { "type": "string", "enum": ["auto"] }
-                                ]
+                                ],
+                                "title": "قیمت محصول",
+                                "description": "در صورتی که می خواهید از قیمت ثبت شده در پلتفرم پاد استفاده کنید مقدار auto ارسال شود"
                             },
                             "quantity": {
                                 "type": "number",
-                                "minimum": 0.00001
+                                "minimum": 0.00001,
+                                "title": "تعداد"
                             },
                             "productDescription": {
                                 "type": "string",
-                                 "minLength": 1
+                                 "minLength": 1,
+                                "title": "توضیحات"
                             }
                         },
                         "required": [
@@ -123,55 +85,92 @@
                 },
                 "guildCode": {
                     "type": "string",
-                     "minLength": 1
+                    "minLength": 1,
+                    "title": "کد صنف"
                 },
                 "currencyCode": {
-                    "type": "string"
+                    "type": "string",
+                    "title": "کد ارز",
+                    "description": "به طور مثال : IRR یا USD"
                 },
                 "addressId": {
-                    "type": "integer"
+                    "type": "integer",
+                    "title": "شناسه آدرس کاربر",
+                    "description": "شناسه آدرسی که کاربر در پلتفرم پاد ثبت کرده است"
                 },
                 "voucherHash": {
-                    "type": "string"
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    },
+                    "title": "کد بن تخفیف"
                 },
                 "preferredTaxRate": {
-                    "type": "string"
+                    "type": "number",
+                    "title": "نرخ مالیات",
+                    "description": "نرخ مالیات برای این خرید که برای تمام آیتم های فاکتور اعمال می شود. اگر مقداری ارسال نشود مقدار مالیات بر ارزش افزوده پیش فرض محاسبه می شود"
                 },
                 "verificationNeeded": {
-                    "type": "string"
+                    "type": "string",
+                    "title": "پرداخت دومرحله ای",
+                    "description": "true یا false"
                 },
                 "verifyAfterTimeout": {
-                    "type": "string"
+                    "type": "string",
+                    "title": "تایید خودکار فاکتور در پرداخت دومرحله ای",
+                    "description": "true یا false"
                 },
                 "preview": {
-                    "type": "string"
+                    "type": "string",
+                    "title": "پیش نمایش فاکتور (در سیستم ثبت نمی گردد)",
+                    "description": "true یا false"
                 },
                 "metadata": {
-                    "type": "string"
+                    "type": "string",
+                    "title": "متادیتا برای فاکتور"
                 },
                 "safe": {
-                    "type": "string"
+                    "type": "string",
+                    "title": "پرداخت فاکتور به روش امن",
+                    "description": "true یا false"
                 },
                 "postVoucherEnabled": {
-                    "type": "string"
+                    "type": "string",
+                    "title": "امکان اضافه کردن ووچر بعد از صدر فاکتور",
+                    "description": "true یا false"
                 },
                 "hasEvent": {
-                    "type": "string"
+                    "type": "string",
+                    "title": "آیا فاکتور رویداد دارد",
+                    "description": "true یا false"
                 },
                 "eventTitle": {
-                    "type": "string"
+                    "type": "string",
+                    "title": "عنوان رویداد"
                 },
                 "eventTimeZone": {
-                    "type": "string"
+                    "type": "string",
+                    "title": "منطقه زمانی رویداد"
                 },
                 "eventReminders": {
-                    "type": "string"
+                    "type": "string",
+                    "title": "یادآورهای رویداد",
+                    "description": "باید به فرمت json باشد. example 1 : {\"id\":0,\"numOfDaysBefore\":3,\"alarmTime\":1511789309821,\"alarmType\":\"Email\"}\"\nexample 2 : {\"id\":0,\"minute\":15,\"alarmType\":\"Notification\"}\n\n"
                 },
                 "eventDescription": {
-                    "type": "string"
+                    "type": "string",
+                    "title": "توضیحات رویداد"
                 },
                 "eventMetadata": {
-                    "type": "array"
+                    "type": "array",
+                    "title": "اطلاعات جانبی رویداد",
+                    "description": "باید به فرمت json باشد. example 1 : {bussinessName=’test’, bussinessURL=’www.test.com’, bussinessIcon=’null’, actionList=[{command=’GET https://www.googleapis.com/calendar/v3/calendars/calendarId/events\n?privateExtendedProperty=petsAllowed%3Dyes\n&sharedExtendedProperty=createdBy%3DmyApp’, commandType={code=’1’, value=’GET’}}], metaData={\"petsAllowed\":\"yes\"}}\n\n"
+                },
+                "cellphoneNumber": {
+                    "type": "string",
+                    "title": "شماره تلفن همراه",
+                    "pattern" : "^(0|\\+98|0098){1}[9]{1}[\\d]{9}$",
+                    "pattern_description": "به صورت 09123456789 وارد شود"
                 }
             },
             "required": [
@@ -191,21 +190,27 @@
             "properties": {
                 "redirectUri": {
                     "type": "string",
-                    "format" : "uri"
+                    "format" : "uri",
+                    "title": "آدرس فراخوانی صادر کننده فاکتور"
                 },
                 "token": {
-                  "type": "string",
-                     "minLength": 1
+                    "type": "string",
+                    "minLength": 1,
+                    "title": "توکن دسترسی کسب و کار"
                 },
                 "ott": {
-                  "type": "string"
+                    "type": "string",
+                    "title": "توکن یک بار مصرف",
+                    "description": "این توکن را می توانید از آخرین درخواست دریافت کنید و یا از متد getOtt آن را دریافت کنید"
                 },
                 "userId": {
-                    "type": "integer"
+                    "type": "integer",
+                    "title": "شناسه کاربری مربوط به مشتری"
                 },
                 "guildCode": {
-                  "type": "string",
-                     "minLength": 1
+                    "type": "string",
+                    "minLength": 1,
+                    "title": "کد صنف"
                 },
                 "productList": {
                     "type": "array",
@@ -213,21 +218,27 @@
                         "type": "array",
                         "properties": {
                             "productId": {
-                                "type": "integer"
+                                "type": "integer",
+                                "title": "شناسه محصول",
+                                "description": "در صورتی که محصول در پلتفرم پاد ثبت نشده است مقدار 0 ارسال شود"
                             },
                             "price": {
                                 "oneOf": [
                                     { "type": "number", "minimum" :  0.00001},
                                     { "type": "string", "enum": ["auto"] }
-                                ]
+                                ],
+                                "title": "قیمت محصول",
+                                "description": "در صورتی که می خواهید از قیمت ثبت شده در پلتفرم پاد استفاده کنید مقدار auto ارسال شود"
                             },
                             "quantity": {
                                 "type": "number",
-                                "minimum" :  0.00001
+                                "minimum" :  0.00001,
+                                "title": "تعداد"
                             },
                             "productDescription": {
                                 "type": "string",
-                                 "minLength": 1
+                                 "minLength": 1,
+                                "title": "توضیحات"
                             }
                         },
                         "required": [
@@ -239,26 +250,37 @@
                     }
                 },
                 "currencyCode": {
-                    "type": "string"
+                    "type": "string",
+                    "title": "کد ارز",
+                    "description": "به طور مثال : IRR یا USD"
                 },
                 "callUrl": {
-                  "type": "string"
+                    "type": "string",
+                    "title": "در صورت پرداخت موفق این آدرس صدا خواهد شد"
                 },
                 "billNumber": {
-                  "type": "string"
+                    "type": "string",
+                    "title": "شماره قبض"
                 },
                 "description": {
-                  "type": "string"
+                    "type": "string",
+                    "title": "توضیحات"
                 },
                 "deadline": {
-                  "type": "string",
-                  "pattern": "[1][3-5][0-9]{2}\/([1-9]|0[1-9]|1[0-2])\/([1-2][0-9]|0[1-9]|3[0-1]|[1-9])"
+                    "type": "string",
+                    "pattern": "[1][3-5][0-9]{2}\/([1-9]|0[1-9]|1[0-2])\/([1-2][0-9]|0[1-9]|3[0-1]|[1-9])",
+                    "title": "تاریخ سر رسید به صورت شمسی",
+                    "pattern_description": "تاریخ را به صورت yyyy/mm/dd وارد کنید"
                 },
                 "preferredTaxRate": {
-                    "type": "string"
+                    "type": "string",
+                    "title": "نرخ مالیات",
+                    "description": "نرخ مالیات برای این خرید که برای تمام آیتم های فاکتور اعمال می شود. اگر مقداری ارسال نشود مقدار مالیات بر ارزش افزوده پیش فرض محاسبه می شود"
                 },
                 "verificationNeeded": {
-                    "type": "string"
+                    "type": "string",
+                    "title": "پرداخت دومرحله ای",
+                    "description": "true یا false"
                 }
             },
             "required": [
@@ -297,71 +319,98 @@
                     "type": "integer"
                 },
                 "billNumber": {
-                    "type": "string"
+                    "type": "string",
+                    "title": "شماره قبض",
+                    "description": "به تنهایی با آن می توان جستجو نمود"
                 },
                 "uniqueNumber": {
-                    "type": "string"
+                    "type": "string",
+                    "title": "شماره کد شده ی قبض",
+                    "description": "به تنهایی با آن می توان جستجو نمود"
                 },
                 "trackerId": {
-                    "type": "integer"
+                    "type": "integer",
+                    "title": "شماره پیگیری"
                 },
                 "fromDate": {
                     "type": "string",
-                    "pattern": "[1][3-5][0-9]{2}\/([1-9]|0[1-9]|1[0-2])\/([1-2][0-9]|0[1-9]|3[0-1]|[1-9])( (2[0-3]|[01]?[0-9]):[0-5]?[0-9](:[0-5]?[0-9])?)?"
+                    "title": "از تاریخ صدور ( به صورت شمسی )",
+                    "pattern": "[1][3-5][0-9]{2}\/([1-9]|0[1-9]|1[0-2])\/([1-2][0-9]|0[1-9]|3[0-1]|[1-9])( (2[0-3]|[01]?[0-9]):[0-5]?[0-9](:[0-5]?[0-9])?)?",
+                    "pattern_description": "تاریخ به صورت yyyy/mm/dd وارد شود"
                 },
                 "toDate": {
                     "type": "string",
-                    "pattern": "[1][3-5][0-9]{2}\/([1-9]|0[1-9]|1[0-2])\/([1-2][0-9]|0[1-9]|3[0-1]|[1-9])( (2[0-3]|[01]?[0-9]):[0-5]?[0-9](:[0-5]?[0-9])?)?"
+                    "title": "تا تاریخ صدور ( به صورت شمسی )",
+                    "pattern": "[1][3-5][0-9]{2}\/([1-9]|0[1-9]|1[0-2])\/([1-2][0-9]|0[1-9]|3[0-1]|[1-9])( (2[0-3]|[01]?[0-9]):[0-5]?[0-9](:[0-5]?[0-9])?)?",
+                    "pattern_description": "تاریخ به صورت yyyy/mm/dd وارد شود"
                 },
                 "isCanceled": {
-                    "type": "string"
+                    "type": "string",
+                    "title": "کنسلی",
+                    "description": "true/false"
                 },
                 "isPayed": {
-                    "type": "string"
+                    "type": "string",
+                    "title": "پرداخت شده",
+                    "description": "true/false"
                 },
                 "isClosed": {
-                    "type": "string"
+                    "type": "string",
+                    "title": "بسته شده",
+                    "description": "true/false"
                 },
                 "isWaiting": {
-                    "type": "string"
+                    "type": "string",
+                    "title": "منتظر پرداخت",
+                    "description": "true/false"
                 },
                 "guildCode": {
-                    "type": "string"
+                    "type": "string",
+                    "title": "کد صنف"
                 },
                 "referenceNumber": {
-                    "type": "string"
+                    "type": "string",
+                    "title": "شماره ارجاع"
                 },
                 "userId": {
-                    "type": "integer"
+                    "type": "integer",
+                    "title": "شناسه کاربری مشتری"
                 },
                 "issuerId": {
-                    "type": "integer"
+                    "type": "integer",
+                    "title": "شناسه کاربری صادر کننده فاکتور"
                 },
                 "query": {
-                    "type": "string"
+                    "type": "string",
+                    "title": "عبارت برای جستجو"
                 },
                 "firstId": {
-                    "type": "integer"
+                    "type": "integer",
+                    "description": "در صورتی که این فیلد وارد شود فیلدهای lastId و offset نباید وارد شوند و نتیجه صعودی مرتب می شود."
                 },
                 "lastId": {
-                    "type": "integer"
+                    "type": "integer",
+                    "description": "در صورتی که این فیلد وارد شود فیلدهای firstId و offset نباید وارد شوند و نتیجه نزولی مرتب می شود"
                 },
                 "offset": {
-                    "type": "integer"
+                    "type": "integer",
+                    "description": "در صورتی که این فیلد وارد شود فیلدهای lastId و firstId نباید وارد شوند و نتیجه نزولی مرتب می شود"
                 },
                 "productIdList": {
                     "type": "array",
                     "items": {
                         "type": "integer"
-                    }
+                    },
+                    "title": "لیست شناسه های محصول"
                 },
                 "size": {
-                    "type": "integer"
+                    "type": "integer",
+                    "title": "تعداد رکورد در هر صفحه"
                 }
             },
             "additionalProperties": false,
             "required": [
-                "size"
+                "size", "guildCode", "offset"
             ]
         }
     },
@@ -388,7 +437,8 @@
             "type": "object",
             "properties": {
                 "invoiceId": {
-                    "type": "integer"
+                    "type": "integer",
+                    "title": "شناسه فاکتور"
                 }
             },
             "required": [
@@ -409,14 +459,18 @@
             "type": "object",
             "properties": {
                 "invoiceId": {
-                    "type": "integer"
+                    "type": "integer",
+                    "title": "شناسه فاکتور"
                 },
                 "redirectUri": {
                     "type": "string",
-                    "format" : "uri"
+                    "format" : "uri",
+                    "title": "آدرس بازگشت",
+                    "description": "آدرسی است که بعد از پرداخت کاربر به آن هدایت می گردد"
                 },
                 "callUri": {
-                    "type": "string"
+                    "type": "string",
+                    "title": "بعد از پرداخت این آدرس صدا زده می شود"
                 }
             },
             "required": [
@@ -438,17 +492,24 @@
             "properties": {
                 "uniqueNumber": {
                     "type": "string",
-                     "minLength": 1
+                    "minLength": 1,
+                    "title": "شماره کد شده ی قبض",
+                    "description": "اگر مقدار uniqueNumber اشتباه ارسال شود، به صفحه \"صفحه یافت نشد\" هدایت می شوید."
                 },
                 "redirectUri": {
                     "type": "string",
-                    "format" : "uri"
+                    "format" : "uri",
+                    "title": "آدرس بازگشت",
+                    "description": "آدرسی است که بعد از پرداخت کاربر به آن هدایت می گردد"
                 },
                 "callUri": {
-                    "type": "string"
+                    "type": "string",
+                    "title": "بعد از پرداخت این آدرس صدا زده می شود"
                 },
                 "gateway": {
-                    "type": "string"
+                    "type": "string",
+                    "title": "کد درگاه - PEP برای بانک پاسارگاد",
+                    "description": "در صورتی که پارامتر gateway ارسال شود کاربر مستقیم به درگاه پرداخت بانک پاسارگاد متنقل می گردد. در غیر این صورت در صفحه ای که نمایش داده میشود کاربر می تواند وارد SSO شود و از امکانات کیف پول خود نیز استفاده نماید."
                 }
             },
             "required": [
@@ -480,17 +541,34 @@
             "type": "object",
             "properties": {
                 "invoiceId": {
-                    "type": "integer"
+                    "type": "integer",
+                    "title": "شناسه فاکتور"
                 },
                 "wallet": {
-                    "type": "string"
+                    "type": "string",
+                    "title": "کد کیف پول"
                 },
                 "callbackUri": {
-                    "type": "string"
+                    "type": "string",
+                    "title": "بعد از پرداخت این آدرس صدا زده می شود"
                 },
                 "redirectUri": {
                     "type": "string",
-                    "format" : "uri"
+                    "format" : "uri",
+                    "title": "آدرس بازگشت",
+                    "description": "آدرسی است که بعد از پرداخت کاربر به آن هدایت می گردد"
+                },
+                "delegationId": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    },
+                    "title": "شناسه اعتبار"
+                },
+                "forceDelegation": {
+                    "type": "string",
+                    "title": "پرداخت فقط از طریق اعتبار",
+                    "description": "true/false"
                 }
             },
             "required": [
@@ -522,19 +600,25 @@
             "type": "object",
             "properties": {
                 "metaQuery": {
-                    "type": "array"
+                    "type": "array",
+                    "title": "عبارت جستجو در متادیتا"
                 },
                 "offset": {
                     "type": "integer"
                 },
                 "size": {
-                    "type": "integer"
+                    "type": "integer",
+                    "title": "تعداد رکورد در هر صفحه"
                 },
                 "isPayed": {
-                    "type": "string"
+                    "type": "string",
+                    "title": "پرداخت شده",
+                    "description": "true/false"
                 },
                 "isCancelled": {
-                    "type": "string"
+                    "type": "string",
+                    "title": "کنسل شده",
+                    "description": "true/false"
                 }
             },
             "required": [],
@@ -577,57 +661,81 @@
                     "type": "integer"
                 },
                 "billNumber": {
-                    "type": "string"
+                    "type": "string",
+                    "title": "شماره قبض",
+                    "description": "به تنهایی با آن می توان جستجو نمود"
                 },
                 "uniqueNumber": {
-                    "type": "string"
+                    "type": "string",
+                    "title": "شماره کد شده ی قبض",
+                    "description": "به تنهایی با آن می توان جستجو نمود"
                 },
                 "trackerId": {
-                    "type": "integer"
+                    "type": "integer",
+                    "title": "شماره پیگیری"
                 },
                 "fromDate": {
                     "type": "string",
-                    "pattern": "[1][3-5][0-9]{2}\/([1-9]|0[1-9]|1[0-2])\/([1-2][0-9]|0[1-9]|3[0-1]|[1-9])( (2[0-3]|[01]?[0-9]):[0-5]?[0-9](:[0-5]?[0-9])?)?"
+                    "title": "از تاریخ صدور ( به صورت شمسی )",
+                    "pattern": "[1][3-5][0-9]{2}\/([1-9]|0[1-9]|1[0-2])\/([1-2][0-9]|0[1-9]|3[0-1]|[1-9])( (2[0-3]|[01]?[0-9]):[0-5]?[0-9](:[0-5]?[0-9])?)?",
+                    "pattern_description": "تاریخ به صورت yyyy/mm/dd وارد شود"
                 },
                 "toDate": {
                     "type": "string",
-                    "pattern": "[1][3-5][0-9]{2}\/([1-9]|0[1-9]|1[0-2])\/([1-2][0-9]|0[1-9]|3[0-1]|[1-9])( (2[0-3]|[01]?[0-9]):[0-5]?[0-9](:[0-5]?[0-9])?)?"
+                    "title": "تا تاریخ صدور ( به صورت شمسی )",
+                    "pattern": "[1][3-5][0-9]{2}\/([1-9]|0[1-9]|1[0-2])\/([1-2][0-9]|0[1-9]|3[0-1]|[1-9])( (2[0-3]|[01]?[0-9]):[0-5]?[0-9](:[0-5]?[0-9])?)?",
+                    "pattern_description": "تاریخ به صورت yyyy/mm/dd وارد شود"
                 },
                 "isCanceled": {
-                    "type": "string"
+                    "type": "string",
+                    "title": "کنسلی",
+                    "description": "true/false"
                 },
                 "isPayed": {
-                    "type": "string"
+                    "type": "string",
+                    "title": "پرداخت شده",
+                    "description": "true/false"
                 },
                 "isClosed": {
-                    "type": "string"
+                    "type": "string",
+                    "title": "بسته شده",
+                    "description": "true/false"
                 },
                 "isWaiting": {
-                    "type": "string"
+                    "type": "string",
+                    "title": "منتظر پرداخت",
+                    "description": "true/false"
                 },
                 "guildCode": {
-                    "type": "string"
+                    "type": "string",
+                    "title": "کد صنف"
                 },
                 "referenceNumber": {
-                    "type": "string"
+                    "type": "string",
+                    "title": "شماره ارجاع"
                 },
                 "userId": {
-                    "type": "integer"
+                    "type": "integer",
+                    "title": "شناسه کاربری مشتری"
                 },
                 "query": {
-                    "type": "string"
+                    "type": "string",
+                    "title": "عبارت برای جستجو"
                 },
                 "productIdList": {
                     "type": "array",
                     "items": {
                         "type": "integer"
-                    }
+                    },
+                    "title": "لیست شناسه های محصول"
                 },
                 "lastNRows": {
-                    "type": "integer"
+                    "type": "integer",
+                    "title": "n ردیف آخر فاکتور"
                 },
                 "callbackUrl": {
-                    "type": "string"
+                    "type": "string",
+                    "title": "آدرس فراخوانی پس از اتمام تولید گزارش"
                 }
             },
             "anyOf": [
@@ -668,10 +776,12 @@
             "type": "object",
             "properties": {
                 "id": {
-                    "type": "integer"
+                    "type": "integer",
+                    "title": "شناسه فاکتور"
                 },
                 "billNumber": {
-                    "type": "string"
+                    "type": "string",
+                    "title": "شماره قبض"
                 }
             },
             "oneOf": [
@@ -712,7 +822,8 @@
             "type": "object",
             "properties": {
                 "id": {
-                    "type": "integer"
+                    "type": "integer",
+                    "title": "شناسه فاکتور"
                 }
             },
             "required": [
@@ -744,7 +855,8 @@
             "type": "object",
             "properties": {
                 "id": {
-                    "type": "integer"
+                    "type": "integer",
+                    "title": "شناسه فاکتور"
                 },
                 "invoiceItemList": {
                     "type": "array",
@@ -752,21 +864,27 @@
                         "type": "array",
                         "properties": {
                             "invoiceItemId": {
-                                "type": "integer"
+                                "type": "integer",
+                                "title": "شناسه بند فاکتور"
                             },
                             "price": {
                                 "oneOf": [
                                     { "type": "number", "minimum": 0.00001 },
                                     { "type": "string", "enum": ["auto"] }
-                                ]
+                                ],
+                                "title": "مبلغ بند فاکتور",
+                                "description": "در صورتی که می خواهید از قیمت ثبت شده در پلتفرم پاد استفاده کنید مقدار auto ارسال شود"
+
                             },
                             "quantity": {
                                 "type": "number",
-                                "minimum": 0.00001
+                                "minimum": 0.00001,
+                                "title": "لیست تعداد محصول در هر بند فاکتور"
                             },
                             "itemDescription": {
                                 "type": "string",
-                                "minLength" : 1
+                                "minLength" : 1,
+                                "title": "لیست توضیحات بند فاکتور"
                             }
                         },
                         "required": [
@@ -778,7 +896,9 @@
                     }
                 },
                 "preferredTaxRate": {
-                    "type": "string"
+                    "type": "string",
+                    "title": "نرخ مالیات",
+                    "description": "نرخ مالیات برای این خرید که برای تمام آیتم های فاکتور اعمال می شود. اگر مقداری ارسال نشود مقدار مالیات بر ارزش افزوده پیش فرض محاسبه می شود"
                 }
             },
             "required": [
@@ -810,7 +930,8 @@
             "type": "object",
             "properties": {
                 "id": {
-                    "type": "integer"
+                    "type": "integer",
+                    "title": "شماره فاکتور"
                 }
             },
             "required": [
@@ -842,7 +963,8 @@
             "type": "object",
             "properties": {
                 "id": {
-                    "type": "integer"
+                    "type": "integer",
+                    "title": "شماره فاکتور"
                 }
             },
             "required": [
@@ -874,17 +996,23 @@
             "type": "object",
             "properties": {
                 "invoiceId": {
-                    "type": "integer"
+                    "type": "integer",
+                    "title": "شماره فاکتور"
                 },
                 "redirectUri": {
                     "type": "string",
-                    "format" : "uri"
+                    "format" : "uri",
+                    "title": "آدرس بازگشت",
+                    "description": "آدرسی است که بعد از پرداخت کاربر به آن هدایت می گردد"
                 },
                 "callbackUri": {
-                    "type": "string"
+                    "type": "string",
+                    "title": "بعد از پرداخت این آدرس صدا زده می شود"
                 },
                 "gateway": {
-                    "type": "string"
+                    "type": "string",
+                    "title": "کد درگاه - PEP برای بانک پاسارگاد",
+                    "description": "در صورتی که پارامتر gateway ارسال شود کاربر مستقیم به درگاه پرداخت بانک پاسارگاد متنقل می گردد. در غیر این صورت در صفحه ای که نمایش داده میشود کاربر می تواند وارد SSO شود و از امکانات کیف پول خود نیز استفاده نماید."
                 }
             },
             "required": [
@@ -916,10 +1044,12 @@
             "type": "object",
             "properties": {
                 "creditorInvoiceId": {
-                    "type": "integer"
+                    "type": "integer",
+                    "title": "شناسه فاکتور بستانکار"
                 },
                 "debtorInvoiceId": {
-                    "type": "integer"
+                    "type": "integer",
+                    "title": "شناسه فاکتور بدهکار"
                 }
             },
             "required": [
@@ -955,17 +1085,22 @@
             "type": "object",
             "properties": {
                 "invoiceId": {
-                    "type": "integer"
+                    "type": "integer",
+                    "title": "شناسه فاکتور"
                 },
                 "date": {
                     "type": "string",
-                    "pattern": "[1][3-5][0-9]{2}\/([1-9]|0[1-9]|1[0-2])\/([1-2][0-9]|0[1-9]|3[0-1]|[1-9])"
+                    "pattern": "[1][3-5][0-9]{2}\/([1-9]|0[1-9]|1[0-2])\/([1-2][0-9]|0[1-9]|3[0-1]|[1-9])",
+                    "title": "تاریخ شمسی سررسید",
+                    "pattern_description": "تاریخ به صورت yyyy/mm/dd وارد شود"
                 },
                 "guildCode": {
-                    "type": "string"
+                    "type": "string",
+                    "title": "کد صنف"
                 },
                 "wallet": {
-                    "type": "string"
+                    "type": "string",
+                    "title": "کد کیف پول"
                 }
             },
             "oneOf": [
@@ -1013,16 +1148,21 @@
                     "type": "integer"
                 },
                 "size": {
-                    "type": "integer"
+                    "type": "integer",
+                    "title": "تعداد رکورد در هر صفحه"
                 },
                 "id": {
-                    "type": "integer"
+                    "type": "integer",
+                    "title": "شناسه درخواست"
                 },
                 "statusCode": {
-                    "type": "string"
+                    "type": "string",
+                    "enum": ["EXPORT_SERVICE_STATUS_CREATED", "EXPORT_SERVICE_STATUS_RUNNING", "EXPORT_SERVICE_STATUS_SUCCESSFUL", "EXPORT_SERVICE_STATUS_FAILED"],
+                    "title": "کد وضعیت"
                 },
                 "serviceUrl": {
-                    "type": "string"
+                    "type": "string",
+                    "title": "آدرس سرویس"
                 }
             },
             "required": [
@@ -1058,26 +1198,38 @@
         "query": {
             "type": "object",
             "properties": {
+                "wallet": {
+                    "type": "string",
+                    "title": "کد کیف پول"
+                },
                 "amount": {
-                    "type": "number"
+                    "type": "number",
+                    "title": "مبلغ برداشت"
                 },
                 "currencyCode": {
-                    "type": "integer"
+                    "type": "string",
+                    "title": "کد ارز",
+                    "description": "به طور مثال : IRR یا USD"
                 },
                 "firstName": {
-                    "type": "integer"
+                    "type": "string",
+                    "title": "نام"
                 },
                 "lastName": {
-                    "type": "string"
+                    "type": "string",
+                    "title": "نام خانوادگی"
                 },
                 "sheba": {
-                    "type": "string"
+                    "type": "string",
+                    "title": "کد شبا حساب بانکی",
+                    "description": "شبا که به صورت عددی وارد می شود. (بدون IR)"
                 },
                 "uniqueId": {
                     "type": "integer"
                 },
                 "description": {
-                    "type": "string"
+                    "type": "string",
+                    "title": "توضیحات"
                 }
             },
             "required": [
@@ -1113,29 +1265,38 @@
             "type": "object",
             "properties": {
                 "firstName": {
-                    "type": "string"
+                    "type": "string",
+                    "title": "نام"
                 },
                 "lastName": {
-                    "type": "string"
+                    "type": "string",
+                    "title": "نام خانوادگی"
                 },
                 "sheba": {
-                    "type": "string"
+                    "type": "string",
+                    "title": "کد شبا حساب بانکی",
+                    "description": "شبا که به صورت عددی وارد می شود. (بدون IR)"
                 },
                 "amount": {
-                    "type": "number"
+                    "type": "number",
+                    "title": "مبلغ برداشت"
                 },
                 "guildCode": {
                     "type": "string",
-                     "minLength": 1
+                    "minLength": 1,
+                    "title": "کد صنف"
                 },
                 "currencyCode": {
-                    "type": "string"
+                    "type": "string",
+                    "title": "کد ارز",
+                    "description": "به طور مثال : IRR یا USD"
                 },
                 "uniqueId": {
                     "type": "integer"
                 },
                 "description": {
-                    "type": "string"
+                    "type": "string",
+                    "title": "توضیحات"
                 }
             },
             "required": ["amount", "guildCode"],
@@ -1169,28 +1330,43 @@
             "type": "object",
             "properties": {
                 "firstName": {
-                    "type": "string"
+                    "type": "string",
+                    "title": "نام"
                 },
                 "lastName": {
-                    "type": "string"
+                    "type": "string",
+                    "title": "نام خانوادگی"
                 },
                 "guildCode": {
-                    "type": "string"
+                    "type": "string",
+                    "title": "کد صنف"
+                },
+                "toolCode": {
+                    "type": "string",
+                    "enum": ["SETTLEMENT_TOOL_SATNA", "SETTLEMENT_TOOL_PAYA", "SETTLEMENT_TOOL_CARD"],
+                    "title": "نوع ابزار برای تسویه، کارت به کارت، پایا و یا ساتنا"
                 },
                 "toolId": {
-                    "type": "string"
+                    "type": "string",
+                    "title": "شماره ابزاری که تسویه به آن واریز می گردد"
                 },
                 "amount": {
-                    "type": "number"
+                    "type": "number",
+                    "title": "مبلغ برداشت"
                 },
                 "currencyCode": {
-                    "type": "string"
+                    "type": "string",
+                    "title": "کد ارز",
+                    "description": "به طور مثال : IRR یا USD"
                 },
                 "uniqueId": {
-                    "type": "integer"
+                    "type": "integer",
+                    "title": "شناسه یکتا",
+                    "description": "شناسه یکتا و دلخواه به منظور جستجو در لیست"
                 },
                 "description": {
-                    "type": "string"
+                    "type": "string",
+                    "title": "توضیحات"
                 }
             },
             "required": ["amount", "guildCode", "toolCode", "toolId"],
@@ -1220,33 +1396,45 @@
             "type": "object",
             "properties": {
                 "statusCode": {
-                    "type": "string"
+                    "type": "string",
+                    "enum": ["SETTLEMENT_DONE", "SETTLEMENT_REQUESTED", "SETTLEMENT_SENT"],
+                    "title": "کد وضعیت"
                 },
                 "currencyCode": {
-                    "type": "string"
+                    "type": "string",
+                    "title": "کد ارز",
+                    "description": "به طور مثال : IRR یا USD"
                 },
                 "fromAmount": {
-                    "type": "number"
+                    "type": "number",
+                    "title": "حد پایین مبلغ درخواست شده"
                 },
                 "toAmount": {
-                    "type": "number"
+                    "type": "number",
+                    "title": "حد بالای مبلغ درخواست شده"
                 },
                 "fromDate": {
                     "type": "string",
-                    "pattern": "[1][3-5][0-9]{2}\/([1-9]|0[1-9]|1[0-2])\/([1-2][0-9]|0[1-9]|3[0-1]|[1-9])"
+                    "title": "حد پایین تاریخ درخواست به صورت تاریخ شمسی",
+                    "pattern": "[1][3-5][0-9]{2}\/([1-9]|0[1-9]|1[0-2])\/([1-2][0-9]|0[1-9]|3[0-1]|[1-9])",
+                    "pattern_description": "تاریخ به صورت yyyy/mm/dd وارد شود"
                 },
                 "toDate": {
                     "type": "string",
-                    "pattern": "[1][3-5][0-9]{2}\/([1-9]|0[1-9]|1[0-2])\/([1-2][0-9]|0[1-9]|3[0-1]|[1-9])"
+                    "title": "حد بالا تاریخ درخواست به صورت تاریخ شمسی",
+                    "pattern": "[1][3-5][0-9]{2}\/([1-9]|0[1-9]|1[0-2])\/([1-2][0-9]|0[1-9]|3[0-1]|[1-9])",
+                    "pattern_description": "تاریخ به صورت yyyy/mm/dd وارد شود"
                 },
                 "offset": {
                     "type": "integer"
                 },
                 "uniqueId": {
-                    "type": "integer"
+                    "type": "integer",
+                    "title": "شناسه یکتا"
                 },
                 "size": {
-                    "type": "integer"
+                    "type": "integer",
+                    "title": "تعداد رکورد در هر صفحه"
                 }
             },
             "required": ["offset", "size"],
@@ -1276,62 +1464,35 @@
             "type": "object",
             "properties": {
                 "firstName": {
-                    "type": "string"
+                    "type": "string",
+                    "title": "نام"
                 },
                 "lastName": {
-                    "type": "string"
+                    "type": "string",
+                    "title": "نام خانوادگی"
                 },
                 "sheba": {
-                    "type": "string"
+                    "type": "string",
+                    "title": "کد شبا حساب بانکی",
+                    "description": "شبا که به صورت عددی وارد می شود. (بدون IR)"
                 },
                 "guildCode": {
                     "type": "string",
-                     "minLength": 1
+                    "minLength": 1,
+                    "title": "کد صنف"
                 },
                 "currencyCode": {
-                    "type": "string"
+                    "type": "string",
+                    "title": "کد ارز",
+                    "description": "به طور مثال : IRR یا USD"
                 },
                 "instant": {
-                    "type": "string"
+                    "type": "string",
+                    "title": "تسویه حساب خودکار فوری",
+                    "description": "در صورت true بودن تسویه حساب خودکار فوری و در صورت false بودن تسویه حساب خودکار فعال می شود "
                 }
             },
             "required": ["guildCode"],
-            "additionalProperties": false
-        }
-    },
-
-    "guildCode": {
-        "header": {
-            "type": "object",
-            "properties": {
-                "_token_": {
-                    "type": "string",
-                     "minLength": 1
-                },
-                "_token_issuer_": {
-                    "type": "integer"
-                }
-            },
-            "required": [
-                "_token_",
-                "_token_issuer_"
-            ],
-            "additionalProperties": true
-        },
-        "query": {
-            "type": "object",
-            "properties": {
-                "instant": {
-                    "type": "string"
-                },
-                "offset": {
-                    "type": "integer"
-                },
-                "size": {
-                    "type": "integer"
-                }
-            },
-            "required": ["offset", "size"],
             "additionalProperties": false
         }
     },
@@ -1359,10 +1520,13 @@
             "properties": {
                 "guildCode": {
                     "type": "string",
-                     "minLength": 1
+                     "minLength": 1,
+                    "title": "کد صنف"
                 },
                 "currencyCode": {
-                    "type": "string"
+                    "type": "string",
+                    "title": "کد ارز",
+                    "description": "به طور مثال : IRR یا USD"
                 }
             },
             "required": ["guildCode"],
@@ -1392,10 +1556,12 @@
             "type": "object",
             "properties": {
                 "dealerBizId": {
-                    "type": "integer"
+                    "type": "integer",
+                    "title": "شناسه کسب و کار واسط"
                 },
                 "allProductAllow": {
-                    "type": "string"
+                    "type": "string",
+                    "title": "دسترسی به همه محصولات"
                 }
             },
             "required": ["dealerBizId"],
@@ -1425,16 +1591,19 @@
             "type": "object",
             "properties": {
                 "dealerBizId": {
-                    "type": "integer"
+                    "type": "integer",
+                    "title": "شناسه کسب و کار واسط"
                 },
                 "enable": {
-                    "type": "string"
+                    "type": "string",
+                    "title": "فعال بودن واسط"
                 },
                 "offset": {
                     "type": "integer"
                 },
                 "size": {
-                    "type": "integer"
+                    "type": "integer",
+                    "title": "تعداد رکورد در هر صفحه"
                 }
             },
             "required": [],
@@ -1464,7 +1633,8 @@
             "type": "object",
             "properties": {
                 "dealerBizId": {
-                    "type": "integer"
+                    "type": "integer",
+                    "title": "شناسه کسب و کار واسط"
                 }
             },
             "required": ["dealerBizId"],
@@ -1494,7 +1664,8 @@
             "type": "object",
             "properties": {
                 "dealerBizId": {
-                    "type": "integer"
+                    "type": "integer",
+                    "title": "شناسه کسب و کار واسط"
                 }
             },
             "required": ["dealerBizId"],
@@ -1524,16 +1695,19 @@
             "type": "object",
             "properties": {
                 "dealingBusinessId": {
-                    "type": "integer"
+                    "type": "integer",
+                    "title": "شناسه کسب و کاری که واسط آن هستید"
                 },
                 "enable": {
-                    "type": "string"
+                    "type": "string",
+                    "title": "فعال بودن واسط"
                 },
                 "offset": {
                     "type": "integer"
                 },
                 "size": {
-                    "type": "integer"
+                    "type": "integer",
+                    "title": "تعداد رکورد در هر صفحه"
                 }
             },
             "required": [],
@@ -1575,10 +1749,13 @@
                             "format": "uri"
                         },
                         "userId": {
-                            "type": "integer"
+                            "type": "integer",
+                            "title": "شناسه کاربری مربوط به مشتری"
                         },
                         "currencyCode": {
-                            "type": "string"
+                            "type": "string",
+                            "title": "کد ارز",
+                            "description": "به طور مثال : IRR یا USD"
                         },
                         "voucherHashs": {
                             "type": "array",
@@ -1587,28 +1764,37 @@
                             }
                         },
                         "preferredTaxRate": {
-                            "type": "number"
+                            "type": "number",
+                            "title": "نرخ مالیات",
+                            "description": "نرخ مالیات برای این خرید که برای تمام آیتم های فاکتور اعمال می شود. اگر مقداری ارسال نشود مقدار مالیات بر ارزش افزوده پیش فرض محاسبه می شود"
                         },
                         "verificationNeeded": {
-                            "type": "string"
+                            "type": "string",
+                            "title": "پرداخت دومرحله ای",
+                            "description": "true یا false"
                         },
                         "preview": {
-                            "type": "string"
+                            "type": "string",
+                            "title": "پیش نمایش فاکتور (در سیستم ثبت نمی گردد)",
+                            "description": "true یا false"
                         },
                         "mainInvoice": {
                             "type": "array",
                             "items": {
                                 "billNumber": {
-                                    "type": "string"
+                                    "type": "string",
+                                    "title": "شماره قبض که در کسب و کار یکتا است"
                                 },
                                 "guildCode": {
-                                    "type": "string"
+                                    "type": "string",
+                                    "title": "کد صنف"
                                 },
                                 "metadata": {
                                     "type": "array"
                                 },
                                 "description": {
-                                    "type": "string"
+                                    "type": "string",
+                                    "title": "توضیحات"
                                 },
                                 "invoiceItemVOs": {
                                     "type": "array",
@@ -1616,19 +1802,26 @@
                                         "type": "array",
                                         "items": {
                                             "productId": {
-                                                "type": "integer"
+                                                "type": "integer",
+                                                "title": "شناسه محصول",
+                                                "description": "در صورتی که محصول در پلتفرم پاد ثبت نشده است مقدار 0 ارسال شود"
                                             },
                                             "price": {
                                                 "oneOf": [
                                                     { "type": "number", "minimum": 0.00001 },
                                                     { "type": "string", "enum": ["auto"] }
-                                                ]
+                                                ],
+                                                "title": "سهم معامله گر",
+                                                "description": "در صورتی که می خواهید از قیمت ثبت شده در پلتفرم پاد استفاده کنید مقدار auto ارسال شود"
+
                                             },
                                             "quantity": {
-                                                "type": "number"
+                                                "type": "number",
+                                                "title": "تعداد"
                                             },
                                             "description": {
-                                                "minLength" : 1
+                                                "minLength" : 1,
+                                                "title": "توضیحات"
                                             }
                                         },
                                         "required": ["productId", "price", "quantity", "description"],
@@ -1645,19 +1838,23 @@
                                 "type": "array",
                                 "items": {
                                     "businessId": {
-                                        "type": "integer"
+                                        "type": "integer",
+                                        "title": "شناسه کسب و کار ذینفع"
                                     },
                                     "guildCode": {
-                                        "type": "string"
+                                        "type": "string",
+                                        "title": "کد صنف"
                                     },
                                     "billNumber": {
-                                        "type": "string"
+                                        "type": "string",
+                                        "title": "شماره قبض که در کسب و کار یکتا است"
                                     },
                                     "metadata": {
                                         "type": "array"
                                     },
                                     "description": {
-                                        "minLength" : 1
+                                        "minLength" : 1,
+                                        "title": "توضیحات"
                                     },
                                     "invoiceItemVOs": {
                                         "type": "array",
@@ -1665,19 +1862,25 @@
                                             "type": "array",
                                             "items": {
                                                 "productId": {
-                                                    "type": "integer"
+                                                    "type": "integer",
+                                                    "title": "شناسه محصول",
+                                                    "description": "در صورتی که محصول در پلتفرم پاد ثبت نشده است مقدار 0 ارسال شود"
                                                 },
                                                 "price": {
                                                     "oneOf": [
                                                         { "type": "number", "minimum": 0.00001 },
                                                         { "type": "string", "enum": ["auto"] }
-                                                    ]
+                                                    ],
+                                                    "title": "سهم ذینفع",
+                                                    "description": "در صورتی که می خواهید از قیمت ثبت شده در پلتفرم پاد استفاده کنید مقدار auto ارسال شود"
                                                 },
                                                 "quantity": {
-                                                    "type": "number"
+                                                    "type": "number",
+                                                    "title": "تعداد"
                                                 },
                                                 "description": {
-                                                    "minLength" : 1
+                                                    "minLength" : 1,
+                                                    "title": "توضیحات"
                                                 }
                                             },
                                             "required": ["productId", "price", "quantity", "description"],
@@ -1690,10 +1893,14 @@
                             }
                         },
                         "customerdescription": {
-                            "type": "string"
+                            "type": "string",
+                            "title": "توضیحات",
+                            "description": "این توضیحات به مشتری نمایش داده می شود"
                         },
                         "customermetadata": {
-                            "type": "array"
+                            "type": "array",
+                            "title": "اطلاعات اضافی",
+                            "description": "ساختار این اطلاعات باید به صورت json باشد"
                         },
                         "customerInvoiceItemVOs": {
                             "type": "array",
@@ -1701,19 +1908,25 @@
                                 "type": "array",
                                 "items": {
                                     "productId": {
-                                        "type": "integer"
+                                        "type": "integer",
+                                        "title": "شناسه محصول",
+                                        "description": "در صورتی که محصول در پلتفرم پاد ثبت نشده است مقدار 0 ارسال شود"
                                     },
                                     "price": {
                                         "oneOf": [
                                             { "type": "number", "minimum": 0.00001 },
                                             { "type": "string", "enum": ["auto"] }
-                                        ]
+                                        ],
+                                        "title": "قیمت محصول",
+                                        "description": "مشتری این مبلغ را پرداخت می کند"
                                     },
                                     "quantity": {
-                                        "type": "number"
+                                        "type": "number",
+                                        "title": "تعداد"
                                     },
                                     "description": {
-                                        "minLength" : 1
+                                        "minLength" : 1,
+                                        "title": "توضیحات"
                                     }
                                 },
                                 "required": ["productId", "price", "quantity", "description"],
@@ -1725,13 +1938,17 @@
                     "additionalproperties": false
                 },
                 "delegatorId": {
-                    "type": "array"
+                    "type": "array",
+                    "title": "شناسه تفویض کنندگان",
+                    "description": "ترتیب اولویت را مشخص می کند"
                 },
                 "delegationHash": {
-                    "type": "array"
+                    "type": "array",
+                    "title": "کد تفویض برای اشاره به یک تفویض مشخص"
                 },
                 "forceDelegation": {
-                    "type": "string"
+                    "type": "string",
+                    "title": "پرداخت فقط از طریق تفویض"
                 }
             },
             "required": ["data"],
@@ -1764,13 +1981,17 @@
                     "type": "array",
                     "items": {
                         "preferredTaxRate": {
-                            "type": "number"
+                            "type": "number",
+                            "title": "نرخ مالیات",
+                            "description": "نرخ مالیات برای این خرید که برای تمام آیتم های فاکتور اعمال می شود. اگر مقداری ارسال نشود مقدار مالیات بر ارزش افزوده پیش فرض محاسبه می شود"
                         },
                         "mainInvoice": {
                             "type": "array",
                             "items": {
                                 "id": {
-                                    "type": "integer"
+                                    "type": "integer",
+                                    "title": "شناسه فاکتور",
+                                    "description": "شناسه فاکتور اصلی که قصد ویرایش آن را دارید"
                                 },
                                 "reduceInvoiceItemVOs": {
                                     "type": "array",
@@ -1778,19 +1999,24 @@
                                         "type": "array",
                                         "items": {
                                             "id": {
-                                                "type": "integer"
+                                                "type": "integer",
+                                                "title": "شناسه آیتم در فاکتور"
                                             },
                                             "price": {
                                                 "oneOf": [
                                                     { "type": "number", "minimum": 0.00001 },
                                                     { "type": "string", "enum": ["auto"] }
-                                                ]
+                                                ],
+                                                "title": "سهم معامله گر",
+                                                "description": "در صورتی که می خواهید از قیمت ثبت شده در پلتفرم پاد استفاده کنید مقدار auto ارسال شود"
                                             },
                                             "quantity": {
-                                                "type": "number"
+                                                "type": "number",
+                                                "title": "تعداد"
                                             },
                                             "description": {
-                                                "minLength": 1
+                                                "minLength": 1,
+                                                "title": "توضیحات"
                                             }
                                         },
                                         "required": [
@@ -1815,7 +2041,9 @@
                                 "type": "array",
                                 "items": {
                                     "id": {
-                                        "type": "integer"
+                                        "type": "integer",
+                                        "title": "شناسه فاکتور",
+                                        "description": "شناسه فاکتور ی که قصد ویرایش آن را دارید"
                                     },
                                     "reduceInvoiceItemVOs": {
                                         "type": "array",
@@ -1823,19 +2051,24 @@
                                             "type": "array",
                                             "items": {
                                                 "id": {
-                                                    "type": "integer"
+                                                    "type": "integer",
+                                                    "title": "شناسه آیتم در فاکتور"
                                                 },
                                                 "price": {
                                                     "oneOf": [
                                                         { "type": "number", "minimum": 0.00001 },
                                                         { "type": "string", "enum": ["auto"] }
-                                                    ]
+                                                    ],
+                                                    "title": "سهم ذینفع",
+                                                    "description": "در صورتی که می خواهید از قیمت ثبت شده در پلتفرم پاد استفاده کنید مقدار auto ارسال شود"
                                                 },
                                                 "quantity": {
-                                                    "type": "number"
+                                                    "type": "number",
+                                                    "title": "تعداد"
                                                 },
                                                 "description": {
-                                                    "minLength": 1
+                                                    "minLength": 1,
+                                                    "title": "توضیحات"
                                                 }
                                             },
                                             "required": [
@@ -1861,19 +2094,24 @@
                                 "type": "array",
                                 "items": {
                                     "id": {
-                                        "type": "integer"
+                                        "type": "integer",
+                                        "title": "شناسه آیتم در فاکتور"
                                     },
                                     "price": {
                                         "oneOf": [
                                             { "type": "number", "minimum": 0.00001 },
                                             { "type": "string", "enum": ["auto"] }
-                                        ]
+                                        ],
+                                        "title": "مبلغ",
+                                        "description": "این مبلغ به مشتری نمایش داده می شود و  مشتری این مبلغ را پرداخت می کند"
                                     },
                                     "quantity": {
-                                        "type": "number"
+                                        "type": "number",
+                                        "title": "تعداد"
                                     },
                                     "description": {
-                                        "minLength": 1
+                                        "minLength": 1,
+                                        "title": "توضیحات"
                                     }
                                 },
                                 "required": [
@@ -1920,13 +2158,17 @@
                     "type": "array",
                     "items": {
                         "preferredTaxRate": {
-                            "type": "number"
+                            "type": "number",
+                            "title": "نرخ مالیات",
+                            "description": "نرخ مالیات برای این خرید که برای تمام آیتم های فاکتور اعمال می شود. اگر مقداری ارسال نشود مقدار مالیات بر ارزش افزوده پیش فرض محاسبه می شود"
                         },
                         "mainInvoice": {
                             "type": "array",
                             "items": {
                                 "id": {
-                                    "type": "integer"
+                                    "type": "integer",
+                                    "title": "شناسه فاکتور",
+                                    "description": "شناسه فاکتور اصلی که قصد ویرایش آن را دارید"
                                 },
                                 "reduceInvoiceItemVOs": {
                                     "type": "array",
@@ -1934,19 +2176,24 @@
                                         "type": "array",
                                         "items": {
                                             "id": {
-                                                "type": "integer"
+                                                "type": "integer",
+                                                "title": "شناسه آیتم در فاکتور"
                                             },
                                             "price": {
                                                 "oneOf": [
                                                     { "type": "number", "minimum": 0.00001 },
                                                     { "type": "string", "enum": ["auto"] }
-                                                ]
+                                                ],
+                                                "title": "سهم معامله گر",
+                                                "description": "در صورتی که می خواهید از قیمت ثبت شده در پلتفرم پاد استفاده کنید مقدار auto ارسال شود"
                                             },
                                             "quantity": {
-                                                "type": "number"
+                                                "type": "number",
+                                                "title": "تعداد"
                                             },
                                             "description": {
-                                                "minLength" : 1
+                                                "minLength" : 1,
+                                                "title": "توضیحات"
                                             }
                                         },
                                         "required": ["id", "price", "quantity", "description"],
@@ -1963,7 +2210,9 @@
                                 "type": "array",
                                 "items": {
                                     "id": {
-                                        "type": "integer"
+                                        "type": "integer",
+                                        "title": "شناسه فاکتور",
+                                        "description": "شناسه فاکتور ی که قصد ویرایش آن را دارید"
                                     },
                                     "reduceInvoiceItemVOs": {
                                         "type": "array",
@@ -1971,19 +2220,24 @@
                                             "type": "array",
                                             "items": {
                                                 "id": {
-                                                    "type": "integer"
+                                                    "type": "integer",
+                                                    "title": "شناسه آیتم در فاکتور"
                                                 },
                                                 "price": {
                                                     "oneOf": [
                                                         { "type": "number", "minimum": 0.00001 },
                                                         { "type": "string", "enum": ["auto"] }
-                                                    ]
+                                                    ],
+                                                    "title": "سهم ذینفع",
+                                                    "description": "در صورتی که می خواهید از قیمت ثبت شده در پلتفرم پاد استفاده کنید مقدار auto ارسال شود"
                                                 },
                                                 "quantity": {
-                                                    "type": "number"
+                                                    "type": "number",
+                                                    "title": "تعداد"
                                                 },
                                                 "description": {
-                                                    "minLength" : 1
+                                                    "minLength" : 1,
+                                                    "title": "توضیحات"
                                                 }
                                             },
                                             "required": ["id", "price", "quantity", "description"],
@@ -2001,19 +2255,24 @@
                                 "type": "array",
                                 "items": {
                                     "id": {
-                                        "type": "integer"
+                                        "type": "integer",
+                                        "title": "شناسه آیتم در فاکتور"
                                     },
                                     "price": {
                                         "oneOf": [
                                             { "type": "number", "minimum": 0 },
                                             { "type": "string", "enum": ["auto"] }
-                                        ]
+                                        ],
+                                        "title": "مبلغ",
+                                        "description": "این مبلغ به مشتری نمایش داده می شود و  مشتری این مبلغ را پرداخت می کند"
                                     },
                                     "quantity": {
-                                        "type": "number"
+                                        "type": "number",
+                                        "title": "تعداد"
                                     },
                                     "description": {
-                                        "minLength" : 1
+                                        "minLength" : 1,
+                                        "title": "توضیحات"
                                     }
                                 },
                                 "required": ["id", "price", "quantity", "description"],
@@ -2052,10 +2311,12 @@
             "type": "object",
             "properties": {
                 "dealerBizId": {
-                    "type": "integer"
+                    "type": "integer",
+                    "title": "شناسه کسب و کار واسط"
                 },
                 "productId": {
-                    "type": "integer"
+                    "type": "integer",
+                    "title": "شناسه محصول"
                 }
             },
             "required": ["dealerBizId", "productId"],
@@ -2085,19 +2346,24 @@
             "type": "object",
             "properties": {
                 "productId": {
-                    "type": "integer"
+                    "type": "integer",
+                    "title": "شناسه محصول"
                 },
                 "dealerBizId": {
-                    "type": "integer"
+                    "type": "integer",
+                    "title": "شناسه کسب و کار واسط"
                 },
                 "enable": {
-                    "type": "string"
+                    "type": "string",
+                    "title": "فعال بودن واسط",
+                    "description": "true/false"
                 },
                 "offset": {
                     "type": "integer"
                 },
                 "size": {
-                    "type": "integer"
+                    "type": "integer",
+                    "title": "تعداد رکورد در هر صفحه"
                 }
             },
             "required": [],
@@ -2127,19 +2393,24 @@
             "type": "object",
             "properties": {
                 "productId": {
-                    "type": "integer"
+                    "type": "integer",
+                    "title": "شناسه محصول"
                 },
                 "dealingBusinessId": {
-                    "type": "integer"
+                    "type": "integer",
+                    "title": "شناسه کسب و کار واسط"
                 },
                 "enable": {
-                    "type": "string"
+                    "type": "string",
+                    "title": "فعال بودن واسط",
+                    "description": "true/false"
                 },
                 "offset": {
                     "type": "integer"
                 },
                 "size": {
-                    "type": "integer"
+                    "type": "integer",
+                    "title": "تعداد رکورد در هر صفحه"
                 }
             },
             "required": [],
@@ -2169,10 +2440,12 @@
             "type": "object",
             "properties": {
                 "productId": {
-                    "type": "integer"
+                    "type": "integer",
+                    "title": "شناسه محصول"
                 },
                 "dealerBizId": {
-                    "type": "integer"
+                    "type": "integer",
+                    "title": "شناسه کسب و کار واسط"
                 }
             },
             "required": ["dealerBizId", "productId"],
@@ -2202,10 +2475,12 @@
             "type": "object",
             "properties": {
                 "productId": {
-                    "type": "integer"
+                    "type": "integer",
+                    "title": "شناسه محصول"
                 },
                 "dealerBizId": {
-                    "type": "integer"
+                    "type": "integer",
+                    "title": "شناسه کسب و کار واسط"
                 }
             },
             "required": ["dealerBizId", "productId"],
