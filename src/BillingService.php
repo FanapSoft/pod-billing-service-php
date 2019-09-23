@@ -24,8 +24,8 @@ class BillingService extends BaseService
         parent::__construct();
         self::$jsonSchema = json_decode(file_get_contents(__DIR__. '/../jsonSchema.json'), true);
         $this->header = [
-            '_token_issuer_'    => $baseInfo->getTokenIssuer(),
-            '_token_'           => $baseInfo->getToken(),
+            '_token_issuer_'    =>  $baseInfo->getTokenIssuer(),
+            '_token_'           => $baseInfo->getToken()
         ];
         self::$billingApi = require __DIR__ . '/../config/apiConfig.php';
     }
@@ -40,25 +40,31 @@ class BillingService extends BaseService
             $header['_ott_'] = $params['_ott_'];
             unset($params['_ott_']);
         }
-        $paramKey = self::$billingApi[$apiName]['method'] == 'GET' ? 'query' : 'form_params';
+//        $paramKey = 'query';
 
         $relativeUri = self::$billingApi[$apiName]['subUri'];
-
         $option = [
             'headers' => $header,
-            $paramKey => $params, // set query param for validation
+            'query' => $params, // set query param for validation
         ];
-
-        self::validateOption($apiName, $option, $paramKey);
+        self::validateOption($apiName, $option, 'query');
 
         // prepare params to send
-        foreach ($params['productList'] as $list){
-            foreach ($list as $key => $value) {
-                $params[$key][] = $value;
+        $withBracketParams = [];
+
+        if (isset($params['productList'])) {
+            foreach ($params['productList'] as $list){
+                foreach ($list as $key => $value) {
+                    $withBracketParams[$key][] = $value;
+                }
             }
+            unset($params['productList']);
         }
-        unset($params['productList']);
-        $option[$paramKey] = $params;
+
+        $option['withBracketParams'] = $withBracketParams;
+        $option['withoutBracketParams'] = $params;
+        //  unset `query` key because query string will be build in ApiRequestHandler and will be added to uri so dont need send again in query params
+        unset($option['query']);
 
         return ApiRequestHandler::Request(
             self::$config[self::$serverType][self::$billingApi[$apiName]['baseUri']],
@@ -68,7 +74,6 @@ class BillingService extends BaseService
             false,
             true
         );
-
     }
 
     public function createPreInvoice($params) {
@@ -90,23 +95,22 @@ class BillingService extends BaseService
         ];
 
         self::validateOption($apiName, $option, $paramKey);
-
-
-        foreach ($params['productList'] as $list){
-            foreach ($list as $key => $value) {
-                $params[$key][] = $value;
+        // prepare params to send
+        if (isset($params['productList'])) {
+            foreach ($params['productList'] as $list) {
+                foreach ($list as $key => $value) {
+                    $params[$key][] = $value;
+                }
             }
+            unset($params['productList']);
         }
-        unset($params['productList']);
         $option[$paramKey] = $params;
 
         $result = ApiRequestHandler::Request(
             $baseUri,
             self::$billingApi[$apiName]['method'],
             $relativeUri,
-            $option,
-            false,
-            true
+            $option
         );
         $preInvoiceUri = rtrim(self::$config[self::$serverType]['PRIVATE-CALL-ADDRESS'], '/'). '/v1/pbc/preinvoice/' . $result['Result'];
         $hashCode = $result['Result'];
@@ -129,6 +133,12 @@ class BillingService extends BaseService
         ];
 
         self::validateOption($apiName, $option, $paramKey);
+        // prepare params to send
+        $option['withBracketParams'] = [];
+        $option['withoutBracketParams'] = $params;
+        //  unset `query` key because query string will be build in ApiRequestHandler and will be added to uri so dont need send again in query params
+        unset($option['query']);
+
         return ApiRequestHandler::Request(
             self::$config[self::$serverType][self::$billingApi[$apiName]['baseUri']],
             self::$billingApi[$apiName]['method'],
@@ -194,11 +204,18 @@ class BillingService extends BaseService
         ];
 
         self::validateOption($apiName, $option);
+        // prepare params to send
+        $option['withBracketParams'] = [];
+        $option['withoutBracketParams'] = $params;
+        //  unset `query` key because query string will be build in ApiRequestHandler and will be added to uri so dont need send again in query params
+        unset($option['query']);
         return ApiRequestHandler::Request(
             self::$config[self::$serverType][self::$billingApi[$apiName]['baseUri']],
             self::$billingApi[$apiName]['method'],
             self::$billingApi[$apiName]['subUri'],
-            $option
+            $option,
+            false,
+            true
         );
     }
 
@@ -233,16 +250,22 @@ class BillingService extends BaseService
         $apiName = 'getInvoiceListAsFile';
         $relativeUri = self::$billingApi[$apiName]['subUri'];
 
-        $paramKey = self::$billingApi[$apiName]['method'] == 'GET' ? 'query' : 'form_params';
+//        $paramKey = self::$billingApi[$apiName]['method'] == 'GET' ? 'query' : 'form_params';
 
         array_walk_recursive($params, 'self::prepareData');
 
         $option = [
             'headers' => $this->header,
-            $paramKey => $params,
+            'query' => $params,
         ];
 
-        self::validateOption($apiName, $option, $paramKey);
+        self::validateOption($apiName, $option, 'query');
+        // prepare params to send
+        $option['withBracketParams'] = [];
+        $option['withoutBracketParams'] = $params;
+        //  unset `query` key because query string will be build in ApiRequestHandler and will be added to uri so dont need send again in query params
+        unset($option['query']);
+
         return ApiRequestHandler::Request(
             self::$config[self::$serverType][self::$billingApi[$apiName]['baseUri']],
             self::$billingApi[$apiName]['method'],
@@ -309,13 +332,20 @@ class BillingService extends BaseService
         self::validateOption($apiName, $option, $paramKey);
 
         // prepare params to send
-        foreach ($params['invoiceItemList'] as $list){
-            foreach ($list as $key => $value) {
-                $params[$key][] = $value;
+        $withBracketParams = [];
+        if (isset($params['invoiceItemList'])){
+            foreach ($params['invoiceItemList'] as $list){
+                foreach ($list as $key => $value) {
+                    $withBracketParams[$key][] = $value;
+                }
             }
+            unset($params['invoiceItemList']);
         }
-        unset($params['invoiceItemList']);
-        $option[$paramKey] = $params;
+
+        $option['withBracketParams'] = $withBracketParams;
+        $option['withoutBracketParams'] = $params;
+        //  unset `query` key because query string will be build in ApiRequestHandler and will be added to uri so dont need send again in query params
+        unset($option['query']);
         return ApiRequestHandler::Request(
             self::$config[self::$serverType][self::$billingApi[$apiName]['baseUri']],
             self::$billingApi[$apiName]['method'],
@@ -449,8 +479,7 @@ class BillingService extends BaseService
             self::$config[self::$serverType][self::$billingApi[$apiName]['baseUri']],
             self::$billingApi[$apiName]['method'],
             self::$billingApi[$apiName]['subUri'],
-            $option,
-            false
+            $option
         );
         // add downloadPath to result
         foreach ($result['result'] as $key => $fileInfo){
@@ -686,7 +715,7 @@ class BillingService extends BaseService
         $apiName = 'issueMultiInvoice';
         $header = $this->header;
         array_walk_recursive($params, 'self::prepareData');
-        $paramKey = self::$billingApi[$apiName]['method'] == 'GET' ? 'query' : 'form_params';
+//        $paramKey = self::$billingApi[$apiName]['method'] == 'GET' ? 'query' : 'form_params';
         $relativeUri = self::$billingApi[$apiName]['subUri'];
 
         if (isset($params['_ott_'])) {
@@ -696,12 +725,15 @@ class BillingService extends BaseService
 
         $option = [
             'headers' => $header,
-            $paramKey => $params,
+            'query' => $params,
         ];
 
-        self::validateOption($apiName, $option, $paramKey);
-        $option[$paramKey]['data'] = json_encode($params['data']);
-
+        self::validateOption($apiName, $option, 'query');
+        $option['query']['data'] = json_encode($params['data']);
+        $option['withBracketParams'] = [];
+        $option['withoutBracketParams'] = $option['query'];
+        //  unset `query` key because query string will be build in ApiRequestHandler and will be added to uri so dont need send again in query params
+        unset($option['query']);
         return  ApiRequestHandler::Request(
             self::$config[self::$serverType][self::$billingApi[$apiName]['baseUri']],
             self::$billingApi[$apiName]['method'],

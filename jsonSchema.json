@@ -153,7 +153,10 @@
                     "title": "منطقه زمانی رویداد"
                 },
                 "eventReminders": {
-                    "type": "string",
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    },
                     "title": "یادآورهای رویداد",
                     "description": "باید به فرمت json باشد. example 1 : {\"id\":0,\"numOfDaysBefore\":3,\"alarmTime\":1511789309821,\"alarmType\":\"Email\"}\"\nexample 2 : {\"id\":0,\"minute\":15,\"alarmType\":\"Notification\"}\n\n"
                 },
@@ -377,7 +380,10 @@
                     "title": "شناسه کاربری مشتری"
                 },
                 "issuerId": {
-                    "type": "integer",
+                    "type": "array",
+                    "items":  {
+                        "type": "integer"
+                    },
                     "title": "شناسه کاربری صادر کننده فاکتور"
                 },
                 "query": {
@@ -408,10 +414,12 @@
                     "title": "تعداد رکورد در هر صفحه"
                 }
             },
-            "additionalProperties": false,
-            "required": [
-                "size", "guildCode", "offset"
-            ]
+            "oneOf" : [
+                { "required": ["offset"] },
+                { "required": ["firstId"] },
+                { "required": ["lastId"] }
+            ],
+            "additionalProperties": false
         }
     },
 
@@ -1939,11 +1947,17 @@
                 },
                 "delegatorId": {
                     "type": "array",
+                    "items": {
+                        "type": "integer"
+                    },
                     "title": "شناسه تفویض کنندگان",
                     "description": "ترتیب اولویت را مشخص می کند"
                 },
                 "delegationHash": {
                     "type": "array",
+                    "items": {
+                        "type": "string"
+                    },
                     "title": "کد تفویض برای اشاره به یک تفویض مشخص"
                 },
                 "forceDelegation": {
