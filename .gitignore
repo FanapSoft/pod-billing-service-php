@@ -2,5 +2,6 @@
 .vscode/
 BillingDemo.php
 **/vendor/
+composer.lock
 
 
