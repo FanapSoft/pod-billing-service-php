@@ -1,241 +1,252 @@
 <?php
 return
     [
-        "getOtt" => [
-            "baseUri"   =>  'PLATFORM-ADDRESS',
-            "subUri"    =>  'nzh/ott/',
-            "method"    =>  'GET'
-        ],
-
-        "getOttFromPrivateCallAddress" => [
-            "baseUri"   =>  'PRIVATE-CALL-ADDRESS',
-            "subUri"    =>  'nzh/ott/',
-            "method"    =>  'GET'
-        ],
-
-        "issueInvoice" => [
+        'issueInvoice' => [
             'baseUri'   => 'PLATFORM-ADDRESS',
-            'subUri'    => 'nzh/biz/issueInvoice/',
+            'subUri' => 'nzh/doServiceCall',
             'method'    => 'GET'
         ],
 
-        "createPreInvoice" => [
-            'baseUri'   => 'PRIVATE-CALL-ADDRESS',
-            'subUri'    => 'service/createPreInvoice',
-            'method'    => 'POST'
+        'createPreInvoice' => [
+            'baseUri'   => 'PLATFORM-ADDRESS',
+            'subUri'    => 'nzh/doServiceCall',
+            'method'    => 'GET'
         ],
 
-        "getInvoiceList" =>  [
-            "baseUri" =>  'PLATFORM-ADDRESS',
-            "subUri" =>  'nzh/biz/getInvoiceList',
-            "method" =>  'GET'
+        'getInvoiceList' =>  [
+            'baseUri' =>  'PLATFORM-ADDRESS',
+            'subUri' => 'nzh/doServiceCall',
+            'method' =>  'GET'
         ],
 
-        "payInvoice" =>  [
-            "baseUri" =>  'PLATFORM-ADDRESS',
-            "subUri" =>  'nzh/biz/payInvoice/',
-            "method" =>  'GET'
+        'payInvoice' =>  [
+            'baseUri' =>  'PLATFORM-ADDRESS',
+            'subUri' => 'nzh/doServiceCall',
+            'method' =>  'GET'
         ],
 
-        "getPayInvoiceByWalletLink" =>  [
-            "baseUri" =>  'PRIVATE-CALL-ADDRESS',
-            "subUri" =>  'v1/pbc/biz/payInvoice/',
-            "method" =>  'GET'
+        'getPayInvoiceByWalletLink' =>  [
+            'baseUri' =>  'PRIVATE-CALL-ADDRESS',
+            'subUri' =>  'v1/pbc/biz/payInvoice/',
+            'method' =>  'GET'
         ],
 
-        "getPayInvoiceByUniqueNumberLink" =>  [
-            "baseUri" =>  'PRIVATE-CALL-ADDRESS',
-            "subUri" =>  '/v1/pbc/payInvoiceByUniqueNumber/',
-            "method" =>  'GET'
+        'getPayInvoiceByUniqueNumberLink' =>  [
+            'baseUri' =>  'PRIVATE-CALL-ADDRESS',
+            'subUri' =>  '/v1/pbc/payInvoiceByUniqueNumber/',
+            'method' =>  'GET'
         ],
 
-        "sendInvoicePaymentSMS" =>  [
-            "baseUri" =>  'PLATFORM-ADDRESS',
-            "subUri" =>  'nzh/biz/sendInvoicePaymentSMS/',
-            "method" =>  'GET'
+        'sendInvoicePaymentSMS' =>  [
+            'baseUri' =>  'PLATFORM-ADDRESS',
+            'subUri' => 'nzh/doServiceCall',
+            'method' =>  'GET'
         ],
 
-        "getInvoiceListByMetadata" =>  [
-            "baseUri" =>  'PLATFORM-ADDRESS',
-            "subUri" =>  'nzh/biz/getInvoiceListByMetadata/',
-            "method" =>  'GET'
+        'getInvoiceListByMetadata' =>  [
+            'baseUri' =>  'PLATFORM-ADDRESS',
+            'subUri' => 'nzh/doServiceCall',
+            'method' =>  'POST'
         ],
 
-        "getInvoiceListAsFile" =>  [
-            "baseUri" =>  'PLATFORM-ADDRESS',
-            "subUri" =>  'nzh/biz/getInvoiceListAsFile/',
-            "method" =>  'GET'
+        'getInvoiceListAsFile' =>  [
+            'baseUri' =>  'PLATFORM-ADDRESS',
+            'subUri' => 'nzh/doServiceCall',
+            'method' =>  'GET'
         ],
 
-        "verifyInvoice" =>  [
-            "baseUri" =>  'PLATFORM-ADDRESS',
-            "subUri" =>  'nzh/biz/verifyInvoice/',
-            "method" =>  'GET'
+        'verifyInvoice' =>  [
+            'baseUri' =>  'PLATFORM-ADDRESS',
+            'subUri' => 'nzh/doServiceCall',
+            'method' =>  'GET'
         ],
 
-        "cancelInvoice" =>  [
-            "baseUri" =>  'PLATFORM-ADDRESS',
-            "subUri" =>  'nzh/biz/cancelInvoice',
-            "method" =>  'GET'
+        'cancelInvoice' =>  [
+            'baseUri' =>  'PLATFORM-ADDRESS',
+            'subUri' => 'nzh/doServiceCall',
+            'method' =>  'GET'
         ],
 
-        "reduceInvoice" =>  [
-            "baseUri" =>  'PLATFORM-ADDRESS',
-            "subUri" =>  'nzh/biz/reduceInvoice/',
-            "method" =>  'GET'
+        'reduceInvoice' =>  [
+            'baseUri' =>  'PLATFORM-ADDRESS',
+            'subUri' => 'nzh/doServiceCall',
+            'method' =>  'GET'
         ],
 
-        "verifyAndCloseInvoice" =>  [
-            "baseUri" =>  'PLATFORM-ADDRESS',
-            "subUri" =>  'nzh/biz/verifyAndCloseInvoice/',
-            "method" =>  'GET'
+        'verifyAndCloseInvoice' =>  [
+            'baseUri' =>  'PLATFORM-ADDRESS',
+            'subUri' => 'nzh/doServiceCall',
+            'method' =>  'GET'
         ],
 
-        "closeInvoice" =>  [
-            "baseUri" =>  'PLATFORM-ADDRESS',
-            "subUri" =>  'nzh/biz/closeInvoice/',
-            "method" =>  'GET'
+        'closeInvoice' =>  [
+            'baseUri' =>  'PLATFORM-ADDRESS',
+            'subUri' => 'nzh/doServiceCall',
+            'method' =>  'GET'
         ],
 
-        "getInvoicePaymentLink" =>  [
-            "baseUri" =>  'PLATFORM-ADDRESS',
-            "subUri" =>  'nzh/biz/getInvoicePaymentLink/',
-            "method" =>  'GET'
+        'getInvoicePaymentLink' =>  [
+            'baseUri' =>  'PLATFORM-ADDRESS',
+            'subUri' => 'nzh/doServiceCall',
+            'method' =>  'GET'
         ],
 
-        "payInvoiceByInvoice" =>  [
-            "baseUri" =>  'PLATFORM-ADDRESS',
-            "subUri" =>  'nzh/biz/issueInvoice/',
-            "method" =>  'GET'
+        'payInvoiceByInvoice' =>  [
+            'baseUri' =>  'PLATFORM-ADDRESS',
+            'subUri' => 'nzh/doServiceCall',
+            'method' =>  'GET'
         ],
 
-        "payInvoiceInFuture" =>  [
-            "baseUri" =>  'PLATFORM-ADDRESS',
-            "subUri" =>  'nzh/biz/payInvoiceInFuture/',
-            "method" =>  'GET'
+        'payInvoiceInFuture' =>  [
+            'baseUri' =>  'PLATFORM-ADDRESS',
+            'subUri' => 'nzh/doServiceCall',
+            'method' =>  'GET'
         ],
 
-        "getExportList" =>  [
-            "baseUri" =>  'PLATFORM-ADDRESS',
-            "subUri" =>  'nzh/biz/getExportList/',
-            "method" =>  'GET'
+        'getExportList' =>  [
+            'baseUri' =>  'PLATFORM-ADDRESS',
+            'subUri' => 'nzh/doServiceCall',
+            'method' =>  'GET'
         ],
 
-        "requestWalletSettlement" =>  [
-            "baseUri" =>  'PLATFORM-ADDRESS',
-            "subUri" =>  'nzh/requestSettlement/',
-            "method" =>  'GET'
+         'payInvoiceByCredit' =>  [
+            'baseUri' =>  'PLATFORM-ADDRESS',
+            'subUri' => 'nzh/doServiceCall',
+            'method' =>  'GET'
         ],
 
-        "requestGuildSettlement" =>  [
-            "baseUri" =>  'PLATFORM-ADDRESS',
-            "subUri" =>  'nzh/biz/requestSettlement/',
-            "method" =>  'GET'
+         'payAnyInvoiceByCredit' =>  [
+            'baseUri' =>  'PLATFORM-ADDRESS',
+            'subUri' => 'nzh/doServiceCall',
+            'method' =>  'GET'
+        ],
+
+        'requestWalletSettlement' =>  [
+            'baseUri' =>  'PLATFORM-ADDRESS',
+            'subUri' => 'nzh/doServiceCall',
+            'method' =>  'GET'
+        ],
+
+        'requestGuildSettlement' =>  [
+            'baseUri' =>  'PLATFORM-ADDRESS',
+            'subUri' => 'nzh/doServiceCall',
+            'method' =>  'GET'
         ],
 
         'requestSettlementByTool' => [
             'baseUri' => 'PLATFORM-ADDRESS',
-            'subUri' => 'nzh/biz/requestSettlementByTool',
+            'subUri' => 'nzh/doServiceCall',
             'method' => 'GET'
         ],
 
         'listSettlements' => [
             'baseUri' => 'PLATFORM-ADDRESS',
-            'subUri' => 'nzh/listSettlements',
+            'subUri' => 'nzh/doServiceCall',
             'method' => 'GET'
         ],
 
         'addAutoSettlement' => [
             'baseUri' => 'PLATFORM-ADDRESS',
-            'subUri' => 'nzh/biz/addAutoSettlement',
+            'subUri' => 'nzh/doServiceCall',
             'method' => 'GET'
         ],
 
         'removeAutoSettlement' => [
             'baseUri' => 'PLATFORM-ADDRESS',
-            'subUri' => 'nzh/biz/removeAutoSettlement',
+            'subUri' => 'nzh/doServiceCall',
             'method' => 'GET'
         ],
-
-        'addDealer' => [
-            'baseUri' => 'PLATFORM-ADDRESS',
-            'subUri' => 'nzh/biz/addDealer',
-            'method' => 'POST'
-        ],
-
-        'dealerList' => [
-            'baseUri' => 'PLATFORM-ADDRESS',
-            'subUri' => 'nzh/biz/dealerList',
-            'method' => 'POST'
-        ],
-
-        'enableDealer' => [
-            'baseUri' => 'PLATFORM-ADDRESS',
-            'subUri' => 'nzh/biz/enableDealer',
-            'method' => 'POST'
-        ],
-
-        'disableDealer' => [
-            'baseUri' => 'PLATFORM-ADDRESS',
-            'subUri' => 'nzh/biz/disableDealer',
-            'method' => 'POST'
-        ],
-
-        'businessDealingList' => [
-            'baseUri' => 'PLATFORM-ADDRESS',
-            'subUri' => 'nzh/biz/businessDealingList',
-            'method' => 'POST'
-        ],
-
+# =========================== MULTI INVOICE APIS =========================
         'issueMultiInvoice' => [
             'baseUri' => 'PLATFORM-ADDRESS',
-            'subUri' => 'nzh/biz/issueMultiInvoice',
-            'method' => 'GET'
+            'subUri' => 'nzh/doServiceCall',
+            'method' => 'POST'
         ],
 
         'reduceMultiInvoice' => [
             'baseUri' => 'PLATFORM-ADDRESS',
-            'subUri' => 'nzh/biz/reduceMultiInvoice',
-            'method' => 'GET'
+            'subUri' => 'nzh/doServiceCall',
+            'method' => 'POST'
         ],
 
         'reduceMultiInvoiceAndCashOut' => [
             'baseUri' => 'PLATFORM-ADDRESS',
-            'subUri' => 'nzh/biz/reduceMultiInvoiceAndCashout',
+            'subUri' => 'nzh/doServiceCall',
+            'method' => 'POST'
+        ],
+
+# ======================== VOUCHER  APIS CONFIG ============================
+        // #1
+        'defineCreditVoucher' => [
+            'baseUri' => 'PLATFORM-ADDRESS',
+            'subUri' => 'nzh/doServiceCall',
             'method' => 'GET'
         ],
 
-        'addDealerProductPermission' => [
+        // #2
+        'defineDiscountAmountVoucher' => [
             'baseUri' => 'PLATFORM-ADDRESS',
-            'subUri' => 'nzh/biz/addDealerProductPermission',
-            'method' => 'POST'
+            'subUri' => 'nzh/doServiceCall',
+            'method' => 'GET'
         ],
 
-        'dealerProductPermissionList' => [
+        // #3
+        'defineDiscountPercentageVoucher' => [
             'baseUri' => 'PLATFORM-ADDRESS',
-            'subUri' => 'nzh/biz/dealerProductPermissionList',
-            'method' => 'POST'
+            'subUri' => 'nzh/doServiceCall',
+            'method' => 'GET'
         ],
 
-        'dealingProductPermissionList' => [
+        // #4
+        'applyVoucher' => [
             'baseUri' => 'PLATFORM-ADDRESS',
-            'subUri' => 'nzh/biz/dealingProductPermissionList',
-            'method' => 'POST'
+            'subUri' => 'nzh/doServiceCall',
+            'method' => 'GET'
         ],
 
-        'disableDealerProductPermission' => [
+        // #5
+        'getVoucherList' => [
             'baseUri' => 'PLATFORM-ADDRESS',
-            'subUri' => 'nzh/biz/disableDealerProductPermission',
-            'method' => 'POST'
+            'subUri' => 'nzh/doServiceCall',
+            'method' => 'GET'
         ],
 
-        'enableDealerProductPermission' => [
+        // #6
+        'deactivateVoucher' => [
             'baseUri' => 'PLATFORM-ADDRESS',
-            'subUri' => 'nzh/biz/enableDealerProductPermission',
-            'method' => 'POST'
+            'subUri' => 'nzh/doServiceCall',
+            'method' => 'GET'
+        ],
+
+        // #7
+        'activateVoucher' => [
+            'baseUri' => 'PLATFORM-ADDRESS',
+            'subUri' => 'nzh/doServiceCall',
+            'method' => 'GET'
+        ],
+# ============= DIRECT DEBIT APIS =========================
+
+        "defineDirectWithdraw" => [
+            "baseUri" =>'PLATFORM-ADDRESS',
+            'subUri' => 'nzh/doServiceCall',
+            "method" =>'POST'
+        ],
+
+        "directWithdrawList" => [
+            "baseUri" =>'PLATFORM-ADDRESS',
+            'subUri' => 'nzh/doServiceCall',
+            "method" =>'GET'
+        ],
+
+        "updateDirectWithdraw" => [
+            "baseUri" =>'PLATFORM-ADDRESS',
+            'subUri' => 'nzh/doServiceCall',
+            "method" =>'POST'
+        ],
+
+        "revokeDirectWithdraw" => [
+            "baseUri" =>'PLATFORM-ADDRESS',
+            'subUri' => 'nzh/doServiceCall',
+            "method" =>'POST'
         ]
     ];
-
-
-
-
