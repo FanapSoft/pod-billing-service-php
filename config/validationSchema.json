@@ -8,7 +8,8 @@
                      "minLength": 1
                 },
                 "_token_issuer_": {
-                    "type": "integer"
+                    "type": "integer",
+                    "enum": [0, 1]
                 },
                 "_ott_": {
                     "type": "string"
@@ -19,7 +20,7 @@
                 "_token_issuer_",
                 "_ott_"
             ],
-            "additionalProperties": true
+            "additionalProperties": false
         },
         "query": {
             "type": "object",
@@ -107,6 +108,8 @@
                 },
                 "preferredTaxRate": {
                     "type": "number",
+                    "minimum" : 0,
+                    "maximum" : 1,
                     "title": "نرخ مالیات",
                     "description": "نرخ مالیات برای این خرید که برای تمام آیتم های فاکتور اعمال می شود. اگر مقداری ارسال نشود مقدار مالیات بر ارزش افزوده پیش فرض محاسبه می شود"
                 },
@@ -174,6 +177,18 @@
                     "title": "شماره تلفن همراه",
                     "pattern" : "^(0|\\+98|0098){1}[9]{1}[\\d]{9}$",
                     "pattern_description": "به صورت 09123456789 وارد شود"
+                },
+                "scVoucherHash": {
+                    "type": "array",
+                    "title": "کد تخفیف برای فراخوانی سرویس کال",
+                    "description": "کد تخفیف برای فراخوانی سرویس کال",
+                    "items": {
+                        "type": "string"
+                    }
+                },
+                "scApiKey": {
+                    "type": "string",
+                    "title": "توکن برای فراخوانی سرویس کال"
                 }
             },
             "required": [
@@ -188,7 +203,7 @@
       "header": {
 
       },
-        "form_params": {
+        "query": {
             "type": "object",
             "properties": {
                 "redirectUri": {
@@ -276,7 +291,9 @@
                     "pattern_description": "تاریخ را به صورت yyyy/mm/dd وارد کنید"
                 },
                 "preferredTaxRate": {
-                    "type": "string",
+                    "type": "number",
+                    "minimum" : 0,
+                    "maximum" : 1,
                     "title": "نرخ مالیات",
                     "description": "نرخ مالیات برای این خرید که برای تمام آیتم های فاکتور اعمال می شود. اگر مقداری ارسال نشود مقدار مالیات بر ارزش افزوده پیش فرض محاسبه می شود"
                 },
@@ -284,6 +301,18 @@
                     "type": "string",
                     "title": "پرداخت دومرحله ای",
                     "description": "true یا false"
+                },
+                "scVoucherHash": {
+                    "type": "array",
+                    "title": "کد تخفیف برای فراخوانی سرویس کال",
+                    "description": "کد تخفیف برای فراخوانی سرویس کال",
+                    "items": {
+                        "type": "string"
+                    }
+                },
+                "scApiKey": {
+                    "type": "string",
+                    "title": "توکن برای فراخوانی سرویس کال"
                 }
             },
             "required": [
@@ -306,14 +335,15 @@
                      "minLength": 1
                 },
                 "_token_issuer_": {
-                    "type": "integer"
+                    "type": "integer",
+                    "enum": [0, 1]
                 }
             },
             "required": [
                 "_token_",
                 "_token_issuer_"
             ],
-            "additionalProperties": true
+            "additionalProperties": false
         },
         "query": {
             "type": "object",
@@ -400,6 +430,7 @@
                 },
                 "offset": {
                     "type": "integer",
+                    "minimum" : 0,
                     "description": "در صورتی که این فیلد وارد شود فیلدهای lastId و firstId نباید وارد شوند و نتیجه نزولی مرتب می شود"
                 },
                 "productIdList": {
@@ -411,7 +442,20 @@
                 },
                 "size": {
                     "type": "integer",
+                    "minimum" : 1,
                     "title": "تعداد رکورد در هر صفحه"
+                },
+                "scVoucherHash": {
+                    "type": "array",
+                    "title": "کد تخفیف برای فراخوانی سرویس کال",
+                    "description": "کد تخفیف برای فراخوانی سرویس کال",
+                    "items": {
+                        "type": "string"
+                    }
+                },
+                "scApiKey": {
+                    "type": "string",
+                    "title": "توکن برای فراخوانی سرویس کال"
                 }
             },
             "oneOf" : [
@@ -432,14 +476,15 @@
                      "minLength": 1
                 },
                 "_token_issuer_": {
-                    "type": "integer"
+                    "type": "integer",
+                    "enum": [0, 1]
                 }
             },
             "required": [
                 "_token_",
                 "_token_issuer_"
             ],
-            "additionalProperties": true
+            "additionalProperties": false
         },
         "query": {
             "type": "object",
@@ -447,6 +492,18 @@
                 "invoiceId": {
                     "type": "integer",
                     "title": "شناسه فاکتور"
+                },
+                "scVoucherHash": {
+                    "type": "array",
+                    "title": "کد تخفیف برای فراخوانی سرویس کال",
+                    "description": "کد تخفیف برای فراخوانی سرویس کال",
+                    "items": {
+                        "type": "string"
+                    }
+                },
+                "scApiKey": {
+                    "type": "string",
+                    "title": "توکن برای فراخوانی سرویس کال"
                 }
             },
             "required": [
@@ -461,7 +518,7 @@
             "type": "object",
             "properties": {},
             "required": [],
-            "additionalProperties": true
+            "additionalProperties": false
         },
         "query": {
             "type": "object",
@@ -479,6 +536,18 @@
                 "callUri": {
                     "type": "string",
                     "title": "بعد از پرداخت این آدرس صدا زده می شود"
+                },
+                "scVoucherHash": {
+                    "type": "array",
+                    "title": "کد تخفیف برای فراخوانی سرویس کال",
+                    "description": "کد تخفیف برای فراخوانی سرویس کال",
+                    "items": {
+                        "type": "string"
+                    }
+                },
+                "scApiKey": {
+                    "type": "string",
+                    "title": "توکن برای فراخوانی سرویس کال"
                 }
             },
             "required": [
@@ -493,7 +562,7 @@
             "type": "object",
             "properties": {},
             "required": [],
-            "additionalProperties": true
+            "additionalProperties": false
         },
         "query": {
             "type": "object",
@@ -518,6 +587,18 @@
                     "type": "string",
                     "title": "کد درگاه - PEP برای بانک پاسارگاد",
                     "description": "در صورتی که پارامتر gateway ارسال شود کاربر مستقیم به درگاه پرداخت بانک پاسارگاد متنقل می گردد. در غیر این صورت در صفحه ای که نمایش داده میشود کاربر می تواند وارد SSO شود و از امکانات کیف پول خود نیز استفاده نماید."
+                },
+                "scVoucherHash": {
+                    "type": "array",
+                    "title": "کد تخفیف برای فراخوانی سرویس کال",
+                    "description": "کد تخفیف برای فراخوانی سرویس کال",
+                    "items": {
+                        "type": "string"
+                    }
+                },
+                "scApiKey": {
+                    "type": "string",
+                    "title": "توکن برای فراخوانی سرویس کال"
                 }
             },
             "required": [
@@ -536,14 +617,15 @@
                      "minLength": 1
                 },
                 "_token_issuer_": {
-                    "type": "integer"
+                    "type": "integer",
+                    "enum": [0, 1]
                 }
             },
             "required": [
                 "_token_",
                 "_token_issuer_"
             ],
-            "additionalProperties": true
+            "additionalProperties": false
         },
         "query": {
             "type": "object",
@@ -577,6 +659,18 @@
                     "type": "string",
                     "title": "پرداخت فقط از طریق اعتبار",
                     "description": "true/false"
+                },
+                "scVoucherHash": {
+                    "type": "array",
+                    "title": "کد تخفیف برای فراخوانی سرویس کال",
+                    "description": "کد تخفیف برای فراخوانی سرویس کال",
+                    "items": {
+                        "type": "string"
+                    }
+                },
+                "scApiKey": {
+                    "type": "string",
+                    "title": "توکن برای فراخوانی سرویس کال"
                 }
             },
             "required": [
@@ -595,27 +689,33 @@
                      "minLength": 1
                 },
                 "_token_issuer_": {
-                    "type": "integer"
+                    "type": "integer",
+                    "enum": [0, 1]
                 }
             },
             "required": [
                 "_token_",
                 "_token_issuer_"
             ],
-            "additionalProperties": true
+            "additionalProperties": false
         },
-        "query": {
+        "form_params": {
             "type": "object",
             "properties": {
                 "metaQuery": {
                     "type": "array",
+                    "items": {
+                        "type": "string"
+                    },
                     "title": "عبارت جستجو در متادیتا"
                 },
                 "offset": {
-                    "type": "integer"
+                    "type": "integer",
+                    "minimum" : 0
                 },
                 "size": {
                     "type": "integer",
+                    "minimum" : 1,
                     "title": "تعداد رکورد در هر صفحه"
                 },
                 "isPayed": {
@@ -627,20 +727,22 @@
                     "type": "string",
                     "title": "کنسل شده",
                     "description": "true/false"
+                },
+                "scVoucherHash": {
+                    "type": "array",
+                    "title": "کد تخفیف برای فراخوانی سرویس کال",
+                    "description": "کد تخفیف برای فراخوانی سرویس کال",
+                    "items": {
+                        "type": "string"
+                    }
+                },
+                "scApiKey": {
+                    "type": "string",
+                    "title": "توکن برای فراخوانی سرویس کال"
                 }
             },
-            "required": [],
+            "required": ["metaQuery"],
             "additionalProperties": false
-        },
-        "json": {
-            "type": "object",
-            "properties": {
-                "metaQuery": {
-                    "type": "array"
-                },
-                "required": [],
-                "additionalProperties": false
-            }
         }
     },
 
@@ -653,14 +755,15 @@
                      "minLength": 1
                 },
                 "_token_issuer_": {
-                    "type": "integer"
+                    "type": "integer",
+                    "enum": [0, 1]
                 }
             },
             "required": [
                 "_token_",
                 "_token_issuer_"
             ],
-            "additionalProperties": true
+            "additionalProperties": false
         },
         "query": {
             "type": "object",
@@ -744,6 +847,18 @@
                 "callbackUrl": {
                     "type": "string",
                     "title": "آدرس فراخوانی پس از اتمام تولید گزارش"
+                },
+                "scVoucherHash": {
+                    "type": "array",
+                    "title": "کد تخفیف برای فراخوانی سرویس کال",
+                    "description": "کد تخفیف برای فراخوانی سرویس کال",
+                    "items": {
+                        "type": "string"
+                    }
+                },
+                "scApiKey": {
+                    "type": "string",
+                    "title": "توکن برای فراخوانی سرویس کال"
                 }
             },
             "anyOf": [
@@ -755,6 +870,11 @@
                 {
                     "required": [
                         "fromDate"
+                    ]
+                },
+                {
+                    "required": [
+                        "toDate"
                     ]
                 }
             ],
@@ -771,14 +891,15 @@
                      "minLength": 1
                 },
                 "_token_issuer_": {
-                    "type": "integer"
+                    "type": "integer",
+                    "enum": [0, 1]
                 }
             },
             "required": [
                 "_token_",
                 "_token_issuer_"
             ],
-            "additionalProperties": true
+            "additionalProperties": false
         },
         "query": {
             "type": "object",
@@ -790,6 +911,18 @@
                 "billNumber": {
                     "type": "string",
                     "title": "شماره قبض"
+                },
+                "scVoucherHash": {
+                    "type": "array",
+                    "title": "کد تخفیف برای فراخوانی سرویس کال",
+                    "description": "کد تخفیف برای فراخوانی سرویس کال",
+                    "items": {
+                        "type": "string"
+                    }
+                },
+                "scApiKey": {
+                    "type": "string",
+                    "title": "توکن برای فراخوانی سرویس کال"
                 }
             },
             "oneOf": [
@@ -817,14 +950,15 @@
                      "minLength": 1
                 },
                 "_token_issuer_": {
-                    "type": "integer"
+                    "type": "integer",
+                    "enum": [0, 1]
                 }
             },
             "required": [
                 "_token_",
                 "_token_issuer_"
             ],
-            "additionalProperties": true
+            "additionalProperties": false
         },
         "query": {
             "type": "object",
@@ -832,6 +966,18 @@
                 "id": {
                     "type": "integer",
                     "title": "شناسه فاکتور"
+                },
+                "scVoucherHash": {
+                    "type": "array",
+                    "title": "کد تخفیف برای فراخوانی سرویس کال",
+                    "description": "کد تخفیف برای فراخوانی سرویس کال",
+                    "items": {
+                        "type": "string"
+                    }
+                },
+                "scApiKey": {
+                    "type": "string",
+                    "title": "توکن برای فراخوانی سرویس کال"
                 }
             },
             "required": [
@@ -850,14 +996,15 @@
                      "minLength": 1
                 },
                 "_token_issuer_": {
-                    "type": "integer"
+                    "type": "integer",
+                    "enum": [0, 1]
                 }
             },
             "required": [
                 "_token_",
                 "_token_issuer_"
             ],
-            "additionalProperties": true
+            "additionalProperties": false
         },
         "query": {
             "type": "object",
@@ -904,9 +1051,23 @@
                     }
                 },
                 "preferredTaxRate": {
-                    "type": "string",
+                    "type": "number",
+                    "minimum" : 0,
+                    "maximum" : 1,
                     "title": "نرخ مالیات",
                     "description": "نرخ مالیات برای این خرید که برای تمام آیتم های فاکتور اعمال می شود. اگر مقداری ارسال نشود مقدار مالیات بر ارزش افزوده پیش فرض محاسبه می شود"
+                },
+                "scVoucherHash": {
+                    "type": "array",
+                    "title": "کد تخفیف برای فراخوانی سرویس کال",
+                    "description": "کد تخفیف برای فراخوانی سرویس کال",
+                    "items": {
+                        "type": "string"
+                    }
+                },
+                "scApiKey": {
+                    "type": "string",
+                    "title": "توکن برای فراخوانی سرویس کال"
                 }
             },
             "required": [
@@ -925,14 +1086,15 @@
                      "minLength": 1
                 },
                 "_token_issuer_": {
-                    "type": "integer"
+                    "type": "integer",
+                    "enum": [0, 1]
                 }
             },
             "required": [
                 "_token_",
                 "_token_issuer_"
             ],
-            "additionalProperties": true
+            "additionalProperties": false
         },
         "query": {
             "type": "object",
@@ -940,6 +1102,18 @@
                 "id": {
                     "type": "integer",
                     "title": "شماره فاکتور"
+                },
+                "scVoucherHash": {
+                    "type": "array",
+                    "title": "کد تخفیف برای فراخوانی سرویس کال",
+                    "description": "کد تخفیف برای فراخوانی سرویس کال",
+                    "items": {
+                        "type": "string"
+                    }
+                },
+                "scApiKey": {
+                    "type": "string",
+                    "title": "توکن برای فراخوانی سرویس کال"
                 }
             },
             "required": [
@@ -958,14 +1132,15 @@
                      "minLength": 1
                 },
                 "_token_issuer_": {
-                    "type": "integer"
+                    "type": "integer",
+                    "enum": [0, 1]
                 }
             },
             "required": [
                 "_token_",
                 "_token_issuer_"
             ],
-            "additionalProperties": true
+            "additionalProperties": false
         },
         "query": {
             "type": "object",
@@ -973,6 +1148,18 @@
                 "id": {
                     "type": "integer",
                     "title": "شماره فاکتور"
+                },
+                "scVoucherHash": {
+                    "type": "array",
+                    "title": "کد تخفیف برای فراخوانی سرویس کال",
+                    "description": "کد تخفیف برای فراخوانی سرویس کال",
+                    "items": {
+                        "type": "string"
+                    }
+                },
+                "scApiKey": {
+                    "type": "string",
+                    "title": "توکن برای فراخوانی سرویس کال"
                 }
             },
             "required": [
@@ -991,14 +1178,15 @@
                      "minLength": 1
                 },
                 "_token_issuer_": {
-                    "type": "integer"
+                    "type": "integer",
+                    "enum": [0, 1]
                 }
             },
             "required": [
                 "_token_",
                 "_token_issuer_"
             ],
-            "additionalProperties": true
+            "additionalProperties": false
         },
         "query": {
             "type": "object",
@@ -1021,6 +1209,18 @@
                     "type": "string",
                     "title": "کد درگاه - PEP برای بانک پاسارگاد",
                     "description": "در صورتی که پارامتر gateway ارسال شود کاربر مستقیم به درگاه پرداخت بانک پاسارگاد متنقل می گردد. در غیر این صورت در صفحه ای که نمایش داده میشود کاربر می تواند وارد SSO شود و از امکانات کیف پول خود نیز استفاده نماید."
+                },
+                "scVoucherHash": {
+                    "type": "array",
+                    "title": "کد تخفیف برای فراخوانی سرویس کال",
+                    "description": "کد تخفیف برای فراخوانی سرویس کال",
+                    "items": {
+                        "type": "string"
+                    }
+                },
+                "scApiKey": {
+                    "type": "string",
+                    "title": "توکن برای فراخوانی سرویس کال"
                 }
             },
             "required": [
@@ -1039,14 +1239,15 @@
                      "minLength": 1
                 },
                 "_token_issuer_": {
-                    "type": "integer"
+                    "type": "integer",
+                    "enum": [0, 1]
                 }
             },
             "required": [
                 "_token_",
                 "_token_issuer_"
             ],
-            "additionalProperties": true
+            "additionalProperties": false
         },
         "query": {
             "type": "object",
@@ -1058,6 +1259,18 @@
                 "debtorInvoiceId": {
                     "type": "integer",
                     "title": "شناسه فاکتور بدهکار"
+                },
+                "scVoucherHash": {
+                    "type": "array",
+                    "title": "کد تخفیف برای فراخوانی سرویس کال",
+                    "description": "کد تخفیف برای فراخوانی سرویس کال",
+                    "items": {
+                        "type": "string"
+                    }
+                },
+                "scApiKey": {
+                    "type": "string",
+                    "title": "توکن برای فراخوانی سرویس کال"
                 }
             },
             "required": [
@@ -1077,7 +1290,8 @@
                      "minLength": 1
                 },
                 "_token_issuer_": {
-                    "type": "integer"
+                    "type": "integer",
+                    "enum": [0, 1]
                 },
                 "_ott_": {
                     "type": "string"
@@ -1087,7 +1301,7 @@
                 "_token_",
                 "_token_issuer_"
             ],
-            "additionalProperties": true
+            "additionalProperties": false
         },
         "query": {
             "type": "object",
@@ -1109,6 +1323,18 @@
                 "wallet": {
                     "type": "string",
                     "title": "کد کیف پول"
+                },
+                "scVoucherHash": {
+                    "type": "array",
+                    "title": "کد تخفیف برای فراخوانی سرویس کال",
+                    "description": "کد تخفیف برای فراخوانی سرویس کال",
+                    "items": {
+                        "type": "string"
+                    }
+                },
+                "scApiKey": {
+                    "type": "string",
+                    "title": "توکن برای فراخوانی سرویس کال"
                 }
             },
             "oneOf": [
@@ -1140,23 +1366,26 @@
                      "minLength": 1
                 },
                 "_token_issuer_": {
-                    "type": "integer"
+                    "type": "integer",
+                    "enum": [0, 1]
                 }
             },
             "required": [
                 "_token_",
                 "_token_issuer_"
             ],
-            "additionalProperties": true
+            "additionalProperties": false
         },
         "query": {
             "type": "object",
             "properties": {
                 "offset": {
-                    "type": "integer"
+                    "type": "integer",
+                    "minimum" : 0
                 },
                 "size": {
                     "type": "integer",
+                    "minimum" : 1,
                     "title": "تعداد رکورد در هر صفحه"
                 },
                 "id": {
@@ -1171,12 +1400,154 @@
                 "serviceUrl": {
                     "type": "string",
                     "title": "آدرس سرویس"
+                },
+                "scVoucherHash": {
+                    "type": "array",
+                    "title": "کد تخفیف برای فراخوانی سرویس کال",
+                    "description": "کد تخفیف برای فراخوانی سرویس کال",
+                    "items": {
+                        "type": "string"
+                    }
+                },
+                "scApiKey": {
+                    "type": "string",
+                    "title": "توکن برای فراخوانی سرویس کال"
                 }
             },
             "required": [
                 "size",
                 "offset"
             ],
+            "additionalProperties": false
+        }
+    },
+
+    "payInvoiceByCredit": {
+        "header": {
+            "type": "object",
+            "properties": {
+                "_token_": {
+                    "type": "string",
+                    "minLength": 1
+                },
+                "_token_issuer_": {
+                    "type": "integer",
+                    "enum": [0, 1]
+                },
+                "_ott_": {
+                    "type": "string"
+                }
+            },
+            "required": [
+                "_token_",
+                "_token_issuer_",
+                "_ott_"
+            ],
+            "additionalProperties": false
+        },
+        "query": {
+            "type": "object",
+            "properties": {
+                "scVoucherHash": {
+                    "type": "array",
+                    "title": "کد تخفیف برای فراخوانی سرویس کال",
+                    "description": "کد تخفیف برای فراخوانی سرویس کال",
+                    "items": {
+                        "type": "string"
+                    }
+                },
+                "scApiKey": {
+                    "type": "string",
+                    "title": "توکن برای فراخوانی سرویس کال"
+                },
+                "invoiceId": {
+                    "type": "integer"
+                },
+                "delegatorId": {
+                    "type": "array",
+                    "items": {
+                        "type": "integer"
+                    }
+                },
+                "delegationHash": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    }
+                },
+                "forceDelegation": {
+                    "type": "string"
+                },
+                "wallet": {
+                    "type": "string"
+                }
+            },
+            "required": ["invoiceId"],
+            "additionalProperties": false
+        }
+    },
+
+    "payAnyInvoiceByCredit": {
+        "header": {
+            "type": "object",
+            "properties": {
+                "_token_": {
+                    "type": "string",
+                    "minLength": 1
+                },
+                "_token_issuer_": {
+                    "type": "integer",
+                    "enum": [0, 1]
+                },
+                "_ott_": {
+                    "type": "string"
+                }
+            },
+            "required": [
+                "_token_",
+                "_token_issuer_",
+                "_ott_"
+            ],
+            "additionalProperties": false
+        },
+        "query": {
+            "type": "object",
+            "properties": {
+                "scVoucherHash": {
+                    "type": "array",
+                    "title": "کد تخفیف برای فراخوانی سرویس کال",
+                    "description": "کد تخفیف برای فراخوانی سرویس کال",
+                    "items": {
+                        "type": "string"
+                    }
+                },
+                "scApiKey": {
+                    "type": "string",
+                    "title": "توکن برای فراخوانی سرویس کال"
+                },
+                "invoiceId": {
+                    "type": "integer"
+                },
+                "delegatorId": {
+                    "type": "array",
+                    "items": {
+                        "type": "integer"
+                    }
+                },
+                "delegationHash": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    }
+                },
+                "forceDelegation": {
+                    "type": "string"
+                },
+                "wallet": {
+                    "type": "string"
+                }
+            },
+            "required": ["invoiceId", "wallet"],
             "additionalProperties": false
         }
     },
@@ -1190,7 +1561,8 @@
                      "minLength": 1
                 },
                 "_token_issuer_": {
-                    "type": "integer"
+                    "type": "integer",
+                    "enum": [0, 1]
                 },
                 "_ott_": {
                     "type": "string"
@@ -1201,7 +1573,7 @@
                 "_token_issuer_",
                 "_ott_"
             ],
-            "additionalProperties": true
+            "additionalProperties": false
         },
         "query": {
             "type": "object",
@@ -1233,11 +1605,23 @@
                     "description": "شبا که به صورت عددی وارد می شود. (بدون IR)"
                 },
                 "uniqueId": {
-                    "type": "integer"
+                    "type": "string"
                 },
                 "description": {
                     "type": "string",
                     "title": "توضیحات"
+                },
+                "scVoucherHash": {
+                    "type": "array",
+                    "title": "کد تخفیف برای فراخوانی سرویس کال",
+                    "description": "کد تخفیف برای فراخوانی سرویس کال",
+                    "items": {
+                        "type": "string"
+                    }
+                },
+                "scApiKey": {
+                    "type": "string",
+                    "title": "توکن برای فراخوانی سرویس کال"
                 }
             },
             "required": [
@@ -1256,7 +1640,8 @@
                      "minLength": 1
                 },
                 "_token_issuer_": {
-                    "type": "integer"
+                    "type": "integer",
+                    "enum": [0, 1]
                 },
                 "_ott_": {
                     "type": "string"
@@ -1267,7 +1652,7 @@
                 "_token_issuer_",
                 "_ott_"
             ],
-            "additionalProperties": true
+            "additionalProperties": false
         },
         "query": {
             "type": "object",
@@ -1300,11 +1685,23 @@
                     "description": "به طور مثال : IRR یا USD"
                 },
                 "uniqueId": {
-                    "type": "integer"
+                    "type": "string"
                 },
                 "description": {
                     "type": "string",
                     "title": "توضیحات"
+                },
+                "scVoucherHash": {
+                    "type": "array",
+                    "title": "کد تخفیف برای فراخوانی سرویس کال",
+                    "description": "کد تخفیف برای فراخوانی سرویس کال",
+                    "items": {
+                        "type": "string"
+                    }
+                },
+                "scApiKey": {
+                    "type": "string",
+                    "title": "توکن برای فراخوانی سرویس کال"
                 }
             },
             "required": ["amount", "guildCode"],
@@ -1321,7 +1718,8 @@
                      "minLength": 1
                 },
                 "_token_issuer_": {
-                    "type": "integer"
+                    "type": "integer",
+                    "enum": [0, 1]
                 },
                 "_ott_": {
                     "type": "string"
@@ -1332,7 +1730,7 @@
                 "_token_issuer_",
                 "_ott_"
             ],
-            "additionalProperties": true
+            "additionalProperties": false
         },
         "query": {
             "type": "object",
@@ -1368,13 +1766,25 @@
                     "description": "به طور مثال : IRR یا USD"
                 },
                 "uniqueId": {
-                    "type": "integer",
+                    "type": "string",
                     "title": "شناسه یکتا",
                     "description": "شناسه یکتا و دلخواه به منظور جستجو در لیست"
                 },
                 "description": {
                     "type": "string",
                     "title": "توضیحات"
+                },
+                "scVoucherHash": {
+                    "type": "array",
+                    "title": "کد تخفیف برای فراخوانی سرویس کال",
+                    "description": "کد تخفیف برای فراخوانی سرویس کال",
+                    "items": {
+                        "type": "string"
+                    }
+                },
+                "scApiKey": {
+                    "type": "string",
+                    "title": "توکن برای فراخوانی سرویس کال"
                 }
             },
             "required": ["amount", "guildCode", "toolCode", "toolId"],
@@ -1391,14 +1801,15 @@
                      "minLength": 1
                 },
                 "_token_issuer_": {
-                    "type": "integer"
+                    "type": "integer",
+                    "enum": [0, 1]
                 }
             },
             "required": [
                 "_token_",
                 "_token_issuer_"
             ],
-            "additionalProperties": true
+            "additionalProperties": false
         },
         "query": {
             "type": "object",
@@ -1434,15 +1845,29 @@
                     "pattern_description": "تاریخ به صورت yyyy/mm/dd وارد شود"
                 },
                 "offset": {
-                    "type": "integer"
+                    "type": "integer",
+                    "minimum" : 0
                 },
                 "uniqueId": {
-                    "type": "integer",
+                    "type": "string",
                     "title": "شناسه یکتا"
                 },
                 "size": {
                     "type": "integer",
+                    "minimum" : 1,
                     "title": "تعداد رکورد در هر صفحه"
+                },
+                "scVoucherHash": {
+                    "type": "array",
+                    "title": "کد تخفیف برای فراخوانی سرویس کال",
+                    "description": "کد تخفیف برای فراخوانی سرویس کال",
+                    "items": {
+                        "type": "string"
+                    }
+                },
+                "scApiKey": {
+                    "type": "string",
+                    "title": "توکن برای فراخوانی سرویس کال"
                 }
             },
             "required": ["offset", "size"],
@@ -1459,14 +1884,15 @@
                      "minLength": 1
                 },
                 "_token_issuer_": {
-                    "type": "integer"
+                    "type": "integer",
+                    "enum": [0, 1]
                 }
             },
             "required": [
                 "_token_",
                 "_token_issuer_"
             ],
-            "additionalProperties": true
+            "additionalProperties": false
         },
         "query": {
             "type": "object",
@@ -1498,6 +1924,18 @@
                     "type": "string",
                     "title": "تسویه حساب خودکار فوری",
                     "description": "در صورت true بودن تسویه حساب خودکار فوری و در صورت false بودن تسویه حساب خودکار فعال می شود "
+                },
+                "scVoucherHash": {
+                    "type": "array",
+                    "title": "کد تخفیف برای فراخوانی سرویس کال",
+                    "description": "کد تخفیف برای فراخوانی سرویس کال",
+                    "items": {
+                        "type": "string"
+                    }
+                },
+                "scApiKey": {
+                    "type": "string",
+                    "title": "توکن برای فراخوانی سرویس کال"
                 }
             },
             "required": ["guildCode"],
@@ -1514,14 +1952,15 @@
                      "minLength": 1
                 },
                 "_token_issuer_": {
-                    "type": "integer"
+                    "type": "integer",
+                    "enum": [0, 1]
                 }
             },
             "required": [
                 "_token_",
                 "_token_issuer_"
             ],
-            "additionalProperties": true
+            "additionalProperties": false
         },
         "query": {
             "type": "object",
@@ -1535,190 +1974,21 @@
                     "type": "string",
                     "title": "کد ارز",
                     "description": "به طور مثال : IRR یا USD"
+                },
+                "scVoucherHash": {
+                    "type": "array",
+                    "title": "کد تخفیف برای فراخوانی سرویس کال",
+                    "description": "کد تخفیف برای فراخوانی سرویس کال",
+                    "items": {
+                        "type": "string"
+                    }
+                },
+                "scApiKey": {
+                    "type": "string",
+                    "title": "توکن برای فراخوانی سرویس کال"
                 }
             },
             "required": ["guildCode"],
-            "additionalProperties": false
-        }
-    },
-
-    "addDealer": {
-        "header": {
-            "type": "object",
-            "properties": {
-                "_token_": {
-                    "type": "string",
-                     "minLength": 1
-                },
-                "_token_issuer_": {
-                    "type": "integer"
-                }
-            },
-            "required": [
-                "_token_",
-                "_token_issuer_"
-            ],
-            "additionalProperties": true
-        },
-        "form_params": {
-            "type": "object",
-            "properties": {
-                "dealerBizId": {
-                    "type": "integer",
-                    "title": "شناسه کسب و کار واسط"
-                },
-                "allProductAllow": {
-                    "type": "string",
-                    "title": "دسترسی به همه محصولات"
-                }
-            },
-            "required": ["dealerBizId"],
-            "additionalProperties": false
-        }
-    },
-
-    "dealerList": {
-        "header": {
-            "type": "object",
-            "properties": {
-                "_token_": {
-                    "type": "string",
-                     "minLength": 1
-                },
-                "_token_issuer_": {
-                    "type": "integer"
-                }
-            },
-            "required": [
-                "_token_",
-                "_token_issuer_"
-            ],
-            "additionalProperties": true
-        },
-        "form_params": {
-            "type": "object",
-            "properties": {
-                "dealerBizId": {
-                    "type": "integer",
-                    "title": "شناسه کسب و کار واسط"
-                },
-                "enable": {
-                    "type": "string",
-                    "title": "فعال بودن واسط"
-                },
-                "offset": {
-                    "type": "integer"
-                },
-                "size": {
-                    "type": "integer",
-                    "title": "تعداد رکورد در هر صفحه"
-                }
-            },
-            "required": [],
-            "additionalProperties": false
-        }
-    },
-
-    "enableDealer": {
-        "header": {
-            "type": "object",
-            "properties": {
-                "_token_": {
-                    "type": "string",
-                     "minLength": 1
-                },
-                "_token_issuer_": {
-                    "type": "integer"
-                }
-            },
-            "required": [
-                "_token_",
-                "_token_issuer_"
-            ],
-            "additionalProperties": true
-        },
-        "form_params": {
-            "type": "object",
-            "properties": {
-                "dealerBizId": {
-                    "type": "integer",
-                    "title": "شناسه کسب و کار واسط"
-                }
-            },
-            "required": ["dealerBizId"],
-            "additionalProperties": false
-        }
-    },
-
-    "disableDealer": {
-        "header": {
-            "type": "object",
-            "properties": {
-                "_token_": {
-                    "type": "string",
-                     "minLength": 1
-                },
-                "_token_issuer_": {
-                    "type": "integer"
-                }
-            },
-            "required": [
-                "_token_",
-                "_token_issuer_"
-            ],
-            "additionalProperties": true
-        },
-        "form_params": {
-            "type": "object",
-            "properties": {
-                "dealerBizId": {
-                    "type": "integer",
-                    "title": "شناسه کسب و کار واسط"
-                }
-            },
-            "required": ["dealerBizId"],
-            "additionalProperties": false
-        }
-    },
-
-    "businessDealingList": {
-        "header": {
-            "type": "object",
-            "properties": {
-                "_token_": {
-                    "type": "string",
-                     "minLength": 1
-                },
-                "_token_issuer_": {
-                    "type": "integer"
-                }
-            },
-            "required": [
-                "_token_",
-                "_token_issuer_"
-            ],
-            "additionalProperties": true
-        },
-        "form_params": {
-            "type": "object",
-            "properties": {
-                "dealingBusinessId": {
-                    "type": "integer",
-                    "title": "شناسه کسب و کاری که واسط آن هستید"
-                },
-                "enable": {
-                    "type": "string",
-                    "title": "فعال بودن واسط"
-                },
-                "offset": {
-                    "type": "integer"
-                },
-                "size": {
-                    "type": "integer",
-                    "title": "تعداد رکورد در هر صفحه"
-                }
-            },
-            "required": [],
             "additionalProperties": false
         }
     },
@@ -1732,7 +2002,7 @@
                 },
                 "_token_issuer_": {
                     "type": "integer",
-                     "minLength": 1
+                    "enum": [0, 1]
                 },
                 "_ott_": {
                     "type": "string",
@@ -1744,9 +2014,9 @@
                 "_token_issuer_",
                 "_ott_"
             ],
-            "additionalProperties": true
+            "additionalProperties": false
         },
-        "query": {
+        "form_params": {
             "type": "object",
             "properties": {
                 "data": {
@@ -1773,6 +2043,8 @@
                         },
                         "preferredTaxRate": {
                             "type": "number",
+                            "minimum" : 0,
+                            "maximum" : 1,
                             "title": "نرخ مالیات",
                             "description": "نرخ مالیات برای این خرید که برای تمام آیتم های فاکتور اعمال می شود. اگر مقداری ارسال نشود مقدار مالیات بر ارزش افزوده پیش فرض محاسبه می شود"
                         },
@@ -1833,12 +2105,12 @@
                                             }
                                         },
                                         "required": ["productId", "price", "quantity", "description"],
-                                        "additionalproperties": false
+                                        "additionalItems": false
                                     }
                                 }
                             },
                             "required": ["guildCode", "invoiceItemVOs"],
-                            "additionalproperties": false
+                            "additionalItems": false
                         },
                         "subInvoices": {
                             "type": "array",
@@ -1892,12 +2164,12 @@
                                                 }
                                             },
                                             "required": ["productId", "price", "quantity", "description"],
-                                            "additionalproperties": false
+                                            "additionalItems": false
                                         }
                                     }
                                 },
                                 "required": ["businessId", "guildCode", "invoiceItemVOs"],
-                                "additionalproperties": false
+                                "additionalItems": false
                             }
                         },
                         "customerdescription": {
@@ -1938,12 +2210,12 @@
                                     }
                                 },
                                 "required": ["productId", "price", "quantity", "description"],
-                                "additionalproperties": false
+                                "additionalItems": false
                             }
                         }
                     },
                     "required": ["mainInvoice", "subInvoices", "customerInvoiceItemVOs"],
-                    "additionalproperties": false
+                    "additionalItems": false
                 },
                 "delegatorId": {
                     "type": "array",
@@ -1963,6 +2235,18 @@
                 "forceDelegation": {
                     "type": "string",
                     "title": "پرداخت فقط از طریق تفویض"
+                },
+                "scVoucherHash": {
+                    "type": "array",
+                    "title": "کد تخفیف برای فراخوانی سرویس کال",
+                    "description": "کد تخفیف برای فراخوانی سرویس کال",
+                    "items": {
+                        "type": "string"
+                    }
+                },
+                "scApiKey": {
+                    "type": "string",
+                    "title": "توکن برای فراخوانی سرویس کال"
                 }
             },
             "required": ["data"],
@@ -1979,16 +2263,17 @@
                      "minLength": 1
                 },
                 "_token_issuer_": {
-                    "type": "integer"
+                    "type": "integer",
+                    "enum": [0, 1]
                 }
             },
             "required": [
                 "_token_",
                 "_token_issuer_"
             ],
-            "additionalProperties": true
+            "additionalProperties": false
         },
-        "query": {
+        "form_params": {
             "type": "object",
             "properties": {
                 "data": {
@@ -1996,6 +2281,8 @@
                     "items": {
                         "preferredTaxRate": {
                             "type": "number",
+                            "minimum" : 0,
+                            "maximum" : 1,
                             "title": "نرخ مالیات",
                             "description": "نرخ مالیات برای این خرید که برای تمام آیتم های فاکتور اعمال می شود. اگر مقداری ارسال نشود مقدار مالیات بر ارزش افزوده پیش فرض محاسبه می شود"
                         },
@@ -2039,7 +2326,7 @@
                                             "quantity",
                                             "description"
                                         ],
-                                        "additionalproperties": false
+                                        "additionalItems": false
                                     }
                                 }
                             },
@@ -2047,7 +2334,7 @@
                                 "id",
                                 "reduceInvoiceItemVOs"
                             ],
-                            "additionalproperties": false
+                            "additionalItems": false
                         },
                         "subInvoices": {
                             "type": "array",
@@ -2091,7 +2378,7 @@
                                                 "quantity",
                                                 "description"
                                             ],
-                                            "additionalproperties": false
+                                            "additionalItems": false
                                         }
                                     }
                                 },
@@ -2099,7 +2386,7 @@
                                     "id",
                                     "reduceInvoiceItemVOs"
                                 ],
-                                "additionalproperties": false
+                                "additionalItems": false
                             }
                         },
                         "customerInvoiceItemVOs": {
@@ -2134,12 +2421,24 @@
                                     "quantity",
                                     "description"
                                 ],
-                                "additionalproperties": false
+                                "additionalItems": false
                             }
                         }
                     },
                     "required": ["mainInvoice", "customerInvoiceItemVOs"],
-                    "additionalproperties": false
+                    "additionalItems": false
+                },
+                "scVoucherHash": {
+                    "type": "array",
+                    "title": "کد تخفیف برای فراخوانی سرویس کال",
+                    "description": "کد تخفیف برای فراخوانی سرویس کال",
+                    "items": {
+                        "type": "string"
+                    }
+                },
+                "scApiKey": {
+                    "type": "string",
+                    "title": "توکن برای فراخوانی سرویس کال"
                 }
             },
             "required": ["data"],
@@ -2156,16 +2455,17 @@
                      "minLength": 1
                 },
                 "_token_issuer_": {
-                    "type": "integer"
+                    "type": "integer",
+                    "enum": [0, 1]
                 }
             },
             "required": [
                 "_token_",
                 "_token_issuer_"
             ],
-            "additionalProperties": true
+            "additionalProperties": false
         },
-        "query": {
+        "form_params": {
             "type": "object",
             "properties": {
                 "data": {
@@ -2173,6 +2473,8 @@
                     "items": {
                         "preferredTaxRate": {
                             "type": "number",
+                            "minimum" : 0,
+                            "maximum" : 1,
                             "title": "نرخ مالیات",
                             "description": "نرخ مالیات برای این خرید که برای تمام آیتم های فاکتور اعمال می شود. اگر مقداری ارسال نشود مقدار مالیات بر ارزش افزوده پیش فرض محاسبه می شود"
                         },
@@ -2211,12 +2513,12 @@
                                             }
                                         },
                                         "required": ["id", "price", "quantity", "description"],
-                                        "additionalproperties": false
+                                        "additionalItems": false
                                     }
                                 }
                             },
                             "required": ["id", "reduceInvoiceItemVOs"],
-                            "additionalproperties": false
+                            "additionalItems": false
                         },
                         "subInvoices": {
                             "type": "array",
@@ -2255,12 +2557,12 @@
                                                 }
                                             },
                                             "required": ["id", "price", "quantity", "description"],
-                                            "additionalproperties": false
+                                            "additionalItems": false
                                         }
                                     }
                                 },
                                 "required": ["id", "reduceInvoiceItemVOs"],
-                                "additionalproperties": false
+                                "additionalItems": false
                             }
                         },
                         "customerInvoiceItemVOs": {
@@ -2290,12 +2592,29 @@
                                     }
                                 },
                                 "required": ["id", "price", "quantity", "description"],
-                                "additionalproperties": false
+                                "additionalItems": false
                             }
                         }
                     },
                     "required": ["mainInvoice", "customerInvoiceItemVOs"],
-                    "additionalproperties": false
+                    "additionalItems": false
+                },
+                "toolCode": {
+                    "type": "string",
+                    "enum": ["SETTLEMENT_TOOL_SATNA", "SETTLEMENT_TOOL_PAYA", "SETTLEMENT_TOOL_CARD"],
+                    "title": "نوع ابزار برای تسویه، کارت به کارت، پایا و یا ساتنا"
+                },
+                "scVoucherHash": {
+                    "type": "array",
+                    "title": "کد تخفیف برای فراخوانی سرویس کال",
+                    "description": "کد تخفیف برای فراخوانی سرویس کال",
+                    "items": {
+                        "type": "string"
+                    }
+                },
+                "scApiKey": {
+                    "type": "string",
+                    "title": "توکن برای فراخوانی سرویس کال"
                 }
             },
             "required": ["data"],
@@ -2303,201 +2622,753 @@
         }
     },
 
-    "addDealerProductPermission": {
+   "defineCreditVoucher": {
         "header": {
             "type": "object",
             "properties": {
                 "_token_": {
                     "type": "string",
-                     "minLength": 1
+                    "minLength": 1
                 },
                 "_token_issuer_": {
-                    "type": "integer"
+                    "type": "integer",
+                    "enum": [0, 1]
                 }
             },
             "required": [
                 "_token_",
                 "_token_issuer_"
             ],
-            "additionalProperties": true
+            "additionalProperties": false
         },
-        "form_params": {
+        "query": {
             "type": "object",
             "properties": {
-                "dealerBizId": {
-                    "type": "integer",
-                    "title": "شناسه کسب و کار واسط"
+                "guildCode": {
+                    "type": "string"
                 },
-                "productId": {
-                    "type": "integer",
-                    "title": "شناسه محصول"
+                "expireDate": {
+                    "title": "تاریخ انقضای شمسی با فرمت yyyy/mm/dd",
+                    "pattern": "[1][3-5][0-9]{2}\/([1-9]|0[1-9]|1[0-2])\/([1-2][0-9]|0[1-9]|3[0-1]|[1-9])",
+                    "pattern_description": "تاریخ به صورت yyyy/mm/dd وارد شود"
+                },
+                "vouchers": {
+                    "type": "array",
+                    "items": {
+                        "type": "array",
+                        "properties": {
+                            "count": {
+                                "type": "integer"
+                            },
+                            "amount": {
+                                "type": "number"
+                            },
+                            "name": {
+                                "type": "string"
+                            },
+                            "description": {
+                                "type": "string"
+                            },
+                            "hash": {
+                                "type": "string"
+                            }
+                        },
+                        "required": ["count", "amount", "name", "description"],
+                        "additionalProperties": false
+                    }
+                },
+                "limitedConsumerId": {
+                    "type": "integer"
+                },
+                "currencyCode": {
+                    "type": "string"
+                },
+                "scVoucherHash": {
+                    "type": "array",
+                    "title": "کد تخفیف برای فراخوانی سرویس کال",
+                    "description": "کد تخفیف برای فراخوانی سرویس کال",
+                    "items": {
+                        "type": "string"
+                    }
+                },
+                "scApiKey": {
+                    "type": "string",
+                    "title": "توکن برای فراخوانی سرویس کال"
                 }
             },
-            "required": ["dealerBizId", "productId"],
+            "required": ["guildCode", "expireDate", "vouchers"],
             "additionalProperties": false
         }
     },
 
-    "dealerProductPermissionList": {
+    "defineDiscountAmountVoucher": {
         "header": {
             "type": "object",
             "properties": {
                 "_token_": {
                     "type": "string",
-                     "minLength": 1
+                    "minLength": 1
                 },
                 "_token_issuer_": {
-                    "type": "integer"
+                    "type": "integer",
+                    "enum": [0, 1]
                 }
             },
             "required": [
                 "_token_",
                 "_token_issuer_"
             ],
-            "additionalProperties": true
+            "additionalProperties": false
         },
-        "form_params": {
+        "query": {
             "type": "object",
             "properties": {
+                "guildCode": {
+                    "type": "string"
+                },
+                "expireDate": {
+                    "title": "تاریخ انقضای شمسی با فرمت yyyy/mm/dd",
+                    "pattern": "[1][3-5][0-9]{2}\/([1-9]|0[1-9]|1[0-2])\/([1-2][0-9]|0[1-9]|3[0-1]|[1-9])",
+                    "pattern_description": "تاریخ به صورت yyyy/mm/dd وارد شود"
+                },
                 "productId": {
-                    "type": "integer",
-                    "title": "شناسه محصول"
+                    "type": "array",
+                    "items": {
+                        "type": "integer"
+                    }
                 },
-                "dealerBizId": {
-                    "type": "integer",
-                    "title": "شناسه کسب و کار واسط"
+                "dealerBusinessId": {
+                    "type": "array",
+                    "items": {
+                        "type": "integer"
+                    }
                 },
-                "enable": {
+                "vouchers": {
+                    "type": "array",
+                    "items": {
+                        "properties":{
+                            "count": {
+                                "type": "integer"
+                            },
+                            "amount": {
+                                "type": "number"
+                            },
+                            "name": {
+                                "type": "string"
+                            },
+                            "description": {
+                                "type": "string"
+                            },
+                            "hash": {
+                                "type": "string"
+                            }
+                        },
+                    "required": ["count", "amount", "name", "description"],
+                    "additionalProperties": false
+                    }
+                },
+                "limitedConsumerId": {
+                    "type": "integer"
+                },
+                "currencyCode": {
+                    "type": "string"
+                },
+                "scVoucherHash": {
+                    "type": "array",
+                    "title": "کد تخفیف برای فراخوانی سرویس کال",
+                    "description": "کد تخفیف برای فراخوانی سرویس کال",
+                    "items": {
+                        "type": "string"
+                    }
+                },
+                "scApiKey": {
                     "type": "string",
-                    "title": "فعال بودن واسط",
-                    "description": "true/false"
+                    "title": "توکن برای فراخوانی سرویس کال"
+                }
+            },
+            "required": ["guildCode", "expireDate", "vouchers"],
+            "additionalProperties": false
+        }
+    },
+
+    "defineDiscountPercentageVoucher": {
+        "header": {
+            "type": "object",
+            "properties": {
+                "_token_": {
+                    "type": "string",
+                    "minLength": 1
+                },
+                "_token_issuer_": {
+                    "type": "integer",
+                    "enum": [0, 1]
+                }
+            },
+            "required": [
+                "_token_",
+                "_token_issuer_"
+            ],
+            "additionalProperties": false
+        },
+        "query": {
+            "type": "object",
+            "properties": {
+                "guildCode": {
+                    "type": "string"
+                },
+                "expireDate": {
+                    "title": "تاریخ انقضای شمسی با فرمت yyyy/mm/dd",
+                    "pattern": "[1][3-5][0-9]{2}\/([1-9]|0[1-9]|1[0-2])\/([1-2][0-9]|0[1-9]|3[0-1]|[1-9])",
+                    "pattern_description": "تاریخ به صورت yyyy/mm/dd وارد شود"
+                },
+                "productId": {
+                    "type": "array",
+                    "items": {
+                        "type": "integer"
+                    }
+                },
+                "dealerBusinessId": {
+                    "type": "array",
+                    "items": {
+                        "type": "integer"
+                    }
+                },
+                "vouchers": {
+                    "type": "array",
+                    "items": {
+                        "type": "array",
+                        "properties": {
+                            "count": {
+                                "type": "integer"
+                            },
+                            "amount": {
+                                "type": "number"
+                            },
+                            "discountPercentage": {
+                                "type": "number",
+                                "minimum": 0,
+                                "maximum": 100
+                            },
+                            "name": {
+                                "type": "string"
+                            },
+                            "description": {
+                                "type": "string"
+                            },
+                            "hash": {
+                                "type": "string"
+                            }
+                        },
+                        "required": ["count", "name", "description"],
+                        "additionalProperties": false
+                    }
+                },
+                "limitedConsumerId": {
+                    "type": "integer"
+                },
+                "type": {
+                    "type": "integer",
+                    "enum": [4, 8, 16]
+                },
+                "currencyCode": {
+                    "type": "string"
+                },
+                "scVoucherHash": {
+                    "type": "array",
+                    "title": "کد تخفیف برای فراخوانی سرویس کال",
+                    "description": "کد تخفیف برای فراخوانی سرویس کال",
+                    "items": {
+                        "type": "string"
+                    }
+                },
+                "scApiKey": {
+                    "type": "string",
+                    "title": "توکن برای فراخوانی سرویس کال"
+                }
+            },
+            "required": ["guildCode", "expireDate", "vouchers", "type"],
+            "additionalProperties": false
+        }
+    },
+
+    "applyVoucher": {
+        "header": {
+            "type": "object",
+            "properties": {
+                "_token_": {
+                    "type": "string",
+                    "minLength": 1
+                },
+                "_ott_": {
+                    "type": "string"
+                },
+                "_token_issuer_": {
+                    "type": "integer",
+                    "enum": [0, 1]
+                }
+            },
+            "required": [
+                "_token_",
+                "_token_issuer_",
+                "_ott_"
+            ],
+            "additionalProperties": false
+        },
+        "query": {
+            "type": "object",
+            "properties": {
+                "invoiceId": {
+                    "type": "integer"
+                },
+                "voucherHash": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    }
+                },
+                "preview": {
+                    "type": "string"
+                },
+                "scVoucherHash": {
+                    "type": "array",
+                    "title": "کد تخفیف برای فراخوانی سرویس کال",
+                    "description": "کد تخفیف برای فراخوانی سرویس کال",
+                    "items": {
+                        "type": "string"
+                    }
+                },
+                "scApiKey": {
+                    "type": "string",
+                    "title": "توکن برای فراخوانی سرویس کال"
+                }
+            },
+            "required": ["invoiceId", "voucherHash"],
+            "additionalProperties": false
+        }
+    },
+
+    "getVoucherList": {
+        "header": {
+            "type": "object",
+            "properties": {
+                "_token_": {
+                    "type": "string",
+                    "minLength": 1
+                },
+                "_token_issuer_": {
+                    "type": "integer",
+                    "enum": [0, 1]
+                }
+            },
+            "required": [
+                "_token_",
+                "_token_issuer_"
+            ],
+            "additionalProperties": false
+        },
+        "query": {
+            "type": "object",
+            "properties": {
+                "consumerId": {
+                    "type": "integer"
+                },
+                "hash": {
+                    "type": "string"
+                },
+                "name": {
+                    "type": "string"
+                },
+                "type": {
+                    "type": "integer"
+                },
+                "guildCode": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    }
+                },
+                "currencyCode": {
+                    "type": "string"
+                },
+                "amountFrom": {
+                    "type": "number"
+                },
+                "amountTo": {
+                    "type": "number"
+                },
+                "discountPercentageFrom": {
+                    "type": "number"
+                },
+                "discountPercentageTo": {
+                    "type": "number"
+                },
+                "expireDateFrom": {
+                    "title": "حد پایین تاریخ انقضا با فرمت yyyy/mm/dd",
+                    "pattern": "[1][3-5][0-9]{2}\/([1-9]|0[1-9]|1[0-2])\/([1-2][0-9]|0[1-9]|3[0-1]|[1-9])",
+                    "pattern_description": "تاریخ به صورت yyyy/mm/dd وارد شود"
+                },
+                "expireDateTo": {
+                    "title": "حد بالای تاریخ انقضا با فرمت yyyy/mm/dd",
+                    "pattern": "[1][3-5][0-9]{2}\/([1-9]|0[1-9]|1[0-2])\/([1-2][0-9]|0[1-9]|3[0-1]|[1-9])",
+                    "pattern_description": "تاریخ به صورت yyyy/mm/dd وارد شود"
+                },
+                "productId": {
+                    "type": "array",
+                    "items": {
+                        "type": "integer"
+                    }
+                },
+                "consumDateFrom": {
+                    "title": "حد پایین تاریخ مصرف بن با فرمت yyyy/mm/dd",
+                    "pattern": "[1][3-5][0-9]{2}\/([1-9]|0[1-9]|1[0-2])\/([1-2][0-9]|0[1-9]|3[0-1]|[1-9])",
+                    "pattern_description": "تاریخ به صورت yyyy/mm/dd وارد شود"
+                },
+                "consumDateTo": {
+                    "title": "حد بالای تاریخ مصرف بن با فرمت yyyy/mm/dd",
+                    "pattern": "[1][3-5][0-9]{2}\/([1-9]|0[1-9]|1[0-2])\/([1-2][0-9]|0[1-9]|3[0-1]|[1-9])",
+                    "pattern_description": "تاریخ به صورت yyyy/mm/dd وارد شود"
+                },
+                "usedAmountFrom": {
+                    "type": "number"
+                },
+                "usedAmountTo": {
+                    "type": "number"
+                },
+                "active": {
+                    "type": "string"
+                },
+                "used": {
+                    "type": "string"
                 },
                 "offset": {
-                    "type": "integer"
+                    "type": "integer",
+                    "minimum": 0
                 },
                 "size": {
                     "type": "integer",
-                    "title": "تعداد رکورد در هر صفحه"
+                    "minimum": 1
+                },
+                "scVoucherHash": {
+                    "type": "array",
+                    "title": "کد تخفیف برای فراخوانی سرویس کال",
+                    "description": "کد تخفیف برای فراخوانی سرویس کال",
+                    "items": {
+                        "type": "string"
+                    }
+                },
+                "scApiKey": {
+                    "type": "string",
+                    "title": "توکن برای فراخوانی سرویس کال"
                 }
             },
-            "required": [],
+            "required": ["offset"],
             "additionalProperties": false
         }
     },
 
-    "dealingProductPermissionList": {
+    "deactivateVoucher": {
         "header": {
             "type": "object",
             "properties": {
                 "_token_": {
                     "type": "string",
-                     "minLength": 1
+                    "minLength": 1
                 },
                 "_token_issuer_": {
-                    "type": "integer"
+                    "type": "integer",
+                    "enum": [0, 1]
                 }
             },
             "required": [
                 "_token_",
                 "_token_issuer_"
             ],
-            "additionalProperties": true
+            "additionalProperties": false
+        },
+        "query": {
+            "type": "object",
+            "properties": {
+                "id": {
+                    "type": "integer"
+                },
+                "scVoucherHash": {
+                    "type": "array",
+                    "title": "کد تخفیف برای فراخوانی سرویس کال",
+                    "description": "کد تخفیف برای فراخوانی سرویس کال",
+                    "items": {
+                        "type": "string"
+                    }
+                },
+                "scApiKey": {
+                    "type": "string",
+                    "title": "توکن برای فراخوانی سرویس کال"
+                }
+            },
+            "required": ["id"],
+            "additionalProperties": false
+        }
+    },
+
+    "activateVoucher": {
+        "header": {
+            "type": "object",
+            "properties": {
+                "_token_": {
+                    "type": "string",
+                    "minLength": 1
+                },
+                "_token_issuer_": {
+                    "type": "integer",
+                    "enum": [0, 1]
+                }
+            },
+            "required": [
+                "_token_",
+                "_token_issuer_"
+            ],
+            "additionalProperties": false
+        },
+        "query": {
+            "type": "object",
+            "properties": {
+                "id": {
+                    "type": "integer"
+                },
+                "scVoucherHash": {
+                    "type": "array",
+                    "title": "کد تخفیف برای فراخوانی سرویس کال",
+                    "description": "کد تخفیف برای فراخوانی سرویس کال",
+                    "items": {
+                        "type": "string"
+                    }
+                },
+                "scApiKey": {
+                    "type": "string",
+                    "title": "توکن برای فراخوانی سرویس کال"
+                }
+            },
+            "required": ["id"],
+            "additionalProperties": false
+        }
+    },
+
+    "defineDirectWithdraw": {
+        "header": {
+            "type": "object",
+            "properties": {
+                "_token_": {
+                    "type": "string",
+                    "minLength": 1
+                },
+                "_token_issuer_": {
+                    "type": "integer",
+                    "enum": [0, 1]
+                }
+            },
+            "required": [
+                "_token_",
+                "_token_issuer_"
+            ],
+            "additionalProperties": false
         },
         "form_params": {
             "type": "object",
             "properties": {
-                "productId": {
-                    "type": "integer",
-                    "title": "شناسه محصول"
-                },
-                "dealingBusinessId": {
-                    "type": "integer",
-                    "title": "شناسه کسب و کار واسط"
-                },
-                "enable": {
+                "username": {
                     "type": "string",
-                    "title": "فعال بودن واسط",
-                    "description": "true/false"
+                    "title": "نام کاربری",
+                    "description": "نام کاربری دریافتی مبتنی بر حساب مبدا اعلام شده"
+                },
+                "privateKey": {
+                    "type": "string"
+                },
+                "depositNumber": {
+                    "type": "string"
+                },
+                "onDemand": {
+                    "type": "string"
+                },
+                "minAmount": {
+                    "type": "number"
+                },
+                "maxAmount": {
+                    "type": "number"
+                },
+                "wallet": {
+                    "type": "string"
+                },
+                "scVoucherHash": {
+                    "type": "array",
+                    "title": "کد تخفیف برای فراخوانی سرویس کال",
+                    "description": "کد تخفیف برای فراخوانی سرویس کال",
+                    "items": {
+                        "type": "string"
+                    }
+                },
+                "scApiKey": {
+                    "type": "string",
+                    "title": "توکن برای فراخوانی سرویس کال"
+                }
+            },
+            "required": ["username", "privateKey", "depositNumber", "onDemand", "minAmount", "maxAmount", "wallet"],
+            "additionalProperties": false
+        }
+    },
+
+    "directWithdrawList": {
+        "header": {
+            "type": "object",
+            "properties": {
+                "_token_": {
+                    "type": "string",
+                    "minLength": 1
+                },
+                "_token_issuer_": {
+                    "type": "integer",
+                    "enum": [0, 1]
+                }
+            },
+            "required": [
+                "_token_",
+                "_token_issuer_"
+            ],
+            "additionalProperties": false
+        },
+        "query": {
+            "type": "object",
+            "properties": {
+                "wallet": {
+                    "type": "string"
                 },
                 "offset": {
-                    "type": "integer"
+                    "type": "integer",
+                    "minimum": 0
                 },
                 "size": {
                     "type": "integer",
-                    "title": "تعداد رکورد در هر صفحه"
+                    "minimum": 1
+                },
+                "scVoucherHash": {
+                    "type": "array",
+                    "title": "کد تخفیف برای فراخوانی سرویس کال",
+                    "description": "کد تخفیف برای فراخوانی سرویس کال",
+                    "items": {
+                        "type": "string"
+                    }
+                },
+                "scApiKey": {
+                    "type": "string",
+                    "title": "توکن برای فراخوانی سرویس کال"
                 }
             },
-            "required": [],
+            "required": ["offset", "size"],
             "additionalProperties": false
         }
     },
 
-    "disableDealerProductPermission": {
+    "updateDirectWithdraw": {
         "header": {
             "type": "object",
             "properties": {
                 "_token_": {
                     "type": "string",
-                     "minLength": 1
+                    "minLength": 1
                 },
                 "_token_issuer_": {
-                    "type": "integer"
+                    "type": "integer",
+                    "enum": [0, 1]
                 }
             },
             "required": [
                 "_token_",
                 "_token_issuer_"
             ],
-            "additionalProperties": true
+            "additionalProperties": false
         },
         "form_params": {
             "type": "object",
             "properties": {
-                "productId": {
-                    "type": "integer",
-                    "title": "شناسه محصول"
+                "id": {
+                    "type": "integer"
                 },
-                "dealerBizId": {
-                    "type": "integer",
-                    "title": "شناسه کسب و کار واسط"
+                "username": {
+                    "type": "string"
+                },
+                "privateKey": {
+                    "type": "string"
+                },
+                "depositNumber": {
+                    "type": "number"
+                },
+                "onDemand": {
+                    "type": "string"
+                },
+                "minAmount": {
+                    "type": "number"
+                },
+                "maxAmount": {
+                    "type": "number"
+                },
+                "wallet": {
+                    "type": "string"
+                },
+                "scVoucherHash": {
+                    "type": "array",
+                    "title": "کد تخفیف برای فراخوانی سرویس کال",
+                    "description": "کد تخفیف برای فراخوانی سرویس کال",
+                    "items": {
+                        "type": "string"
+                    }
+                },
+                "scApiKey": {
+                    "type": "string",
+                    "title": "توکن برای فراخوانی سرویس کال"
                 }
             },
-            "required": ["dealerBizId", "productId"],
+            "required": ["id", "username", "privateKey", "depositNumber", "onDemand", "minAmount", "maxAmount", "wallet"],
             "additionalProperties": false
         }
     },
 
-    "enableDealerProductPermission": {
+    "revokeDirectWithdraw": {
         "header": {
             "type": "object",
             "properties": {
                 "_token_": {
                     "type": "string",
-                     "minLength": 1
+                    "minLength": 1
                 },
                 "_token_issuer_": {
-                    "type": "integer"
+                    "type": "integer",
+                    "enum": [0, 1]
                 }
             },
             "required": [
                 "_token_",
                 "_token_issuer_"
             ],
-            "additionalProperties": true
+            "additionalProperties": false
         },
         "form_params": {
             "type": "object",
             "properties": {
-                "productId": {
-                    "type": "integer",
-                    "title": "شناسه محصول"
+                "id": {
+                    "type": "integer"
                 },
-                "dealerBizId": {
-                    "type": "integer",
-                    "title": "شناسه کسب و کار واسط"
+                "scVoucherHash": {
+                    "type": "array",
+                    "title": "کد تخفیف برای فراخوانی سرویس کال",
+                    "description": "کد تخفیف برای فراخوانی سرویس کال",
+                    "items": {
+                        "type": "string"
+                    }
+                },
+                "scApiKey": {
+                    "type": "string",
+                    "title": "توکن برای فراخوانی سرویس کال"
                 }
             },
-            "required": ["dealerBizId", "productId"],
+            "required": ["id"],
             "additionalProperties": false
         }
     }
