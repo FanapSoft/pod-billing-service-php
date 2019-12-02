@@ -216,9 +216,7 @@ class BillingService extends BaseService
         $httpQuery = self::buildHttpQuery($params);
 
          self::validateOption($apiName, $option);
-        # prepare params to send
-        # set service call product Id
-        $option['query']['scProductId'] = self::$serviceProductId[$apiName];
+
         return self::$baseUri['PRIVATE-CALL-ADDRESS'] . self::$billingApi[$apiName]['subUri'] . '?' . $httpQuery;
     }
 
@@ -231,10 +229,7 @@ class BillingService extends BaseService
 
         $httpQuery = self::buildHttpQuery($params);
 
-         self::validateOption($apiName, $option);
-        # prepare params to send
-        # set service call product Id
-        $option['query']['scProductId'] = self::$serviceProductId[$apiName];
+        self::validateOption($apiName, $option);
         return self::$baseUri['PRIVATE-CALL-ADDRESS'] . self::$billingApi[$apiName]['subUri'] . '?' . $httpQuery;
     }
 

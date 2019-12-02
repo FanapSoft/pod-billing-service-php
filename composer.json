@@ -1,6 +1,6 @@
 {
   "name": "pod-sdk/pod-billing-service",
-  "version": "2.1.0",
+  "version": "3.0",
   "type": "library",
   "keywords": ["sdk", "pod sdk", "pod sdk billing service"],
   "license": "MIT",
@@ -14,7 +14,7 @@
 
   "require": {
     "ext-openssl": "*",
-    "pod-sdk/pod-base-service" : "^2.1"
+    "pod-sdk/pod-base-service" : "^3.0"
   },
   "autoload": {
     "psr-4": {
