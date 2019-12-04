@@ -1793,13 +1793,21 @@
             "properties": {
                 "statusCode": {
                     "type": "string",
-                    "enum": ["SETTLEMENT_DONE", "SETTLEMENT_REQUESTED", "SETTLEMENT_SENT"],
+                    "enum": ["SETTLEMENT_DONE", "SETTLEMENT_REQUESTED", "SETTLEMENT_SENT", "SETTLEMENT_CANCELED", "SETTLEMENT_EXCEPTION_IN_SENDING", "SETTLEMENT_CONFIRMING"],
                     "title": "کد وضعیت"
                 },
                 "currencyCode": {
                     "type": "string",
                     "title": "کد ارز",
                     "description": "به طور مثال : IRR یا USD"
+                },
+                "firstName": {
+                    "type": "string",
+                    "title": "نام"
+                },
+                "lastName": {
+                    "type": "string",
+                    "title": "نام خانوادگی"
                 },
                 "fromAmount": {
                     "type": "number",
@@ -1833,6 +1841,23 @@
                     "type": "integer",
                     "minimum" : 1,
                     "title": "تعداد رکورد در هر صفحه"
+                },
+                "toolCode": {
+                    "type": "string",
+                    "enum": ["SETTLEMENT_TOOL_SATNA", "SETTLEMENT_TOOL_PAYA", "SETTLEMENT_TOOL_CARD"],
+                    "title": "نوع ابزار برای تسویه، کارت به کارت، پایا و یا ساتنا"
+                },
+                "toolId": {
+                    "type": "string",
+                    "title": "شماره ابزاری که تسویه به آن واریز می گردد"
+                },
+                "id": {
+                    "type": "integer",
+                    "title": "شناسه درخواست",
+                    "description": "شناسه درخواست"
+                },
+                "invoiceId": {
+                    "type": "integer"
                 },
                 "scVoucherHash": {
                     "type": "array",

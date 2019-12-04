@@ -15,6 +15,7 @@ use Pod\Base\Service\Exception\PodException;
 class BillingService extends BaseService
 {
     private $header;
+    private static $jsonSchema;
     private static $billingApi;
     private static $serviceProductId;
     private static $baseUri;
@@ -50,7 +51,7 @@ class BillingService extends BaseService
             'headers' => $header,
             'query' => $params, // set query param for validation
         ];
-        self::validateOption($apiName, $option, 'query');
+        self::validateOption($option, self::$jsonSchema[$apiName], 'query');
 
         // prepare params to send
         $withBracketParams = [];
@@ -98,7 +99,7 @@ class BillingService extends BaseService
             $paramKey => $params, // set query param for validation
         ];
 
-        self::validateOption($apiName, $option, $paramKey);
+        self::validateOption($option, self::$jsonSchema[$apiName], $paramKey);
         // prepare params to send
         $withBracketParams = [];
 
@@ -152,7 +153,7 @@ class BillingService extends BaseService
             $paramKey => $params,
         ];
 
-        self::validateOption($apiName, $option, $paramKey);
+        self::validateOption($option, self::$jsonSchema[$apiName], $paramKey);
         // prepare params to send
         # set service call product Id
         $params['scProductId'] = self::$serviceProductId[$apiName];
@@ -183,7 +184,7 @@ class BillingService extends BaseService
             $paramKey => $params,
         ];
 
-         self::validateOption($apiName, $option, $paramKey);
+         self::validateOption($option, self::$jsonSchema[$apiName], $paramKey);
 
         # prepare params to send
         # set service call product Id
@@ -215,7 +216,7 @@ class BillingService extends BaseService
 
         $httpQuery = self::buildHttpQuery($params);
 
-         self::validateOption($apiName, $option);
+         self::validateOption($option, self::$jsonSchema[$apiName]);
 
         return self::$baseUri['PRIVATE-CALL-ADDRESS'] . self::$billingApi[$apiName]['subUri'] . '?' . $httpQuery;
     }
@@ -229,7 +230,7 @@ class BillingService extends BaseService
 
         $httpQuery = self::buildHttpQuery($params);
 
-        self::validateOption($apiName, $option);
+        self::validateOption($option, self::$jsonSchema[$apiName]);
         return self::$baseUri['PRIVATE-CALL-ADDRESS'] . self::$billingApi[$apiName]['subUri'] . '?' . $httpQuery;
     }
 
@@ -242,7 +243,7 @@ class BillingService extends BaseService
             'query' => $params,
         ];
 
-         self::validateOption($apiName, $option);
+         self::validateOption($option, self::$jsonSchema[$apiName]);
 
         # prepare params to send
         # set service call product Id
@@ -276,7 +277,7 @@ class BillingService extends BaseService
             'headers' => $header,
             $paramKey => $params,
         ];
-         self::validateOption($apiName, $option, $paramKey);
+         self::validateOption($option, self::$jsonSchema[$apiName], $paramKey);
 
         # prepare params to send
         if (isset($params['metaQuery'])) {
@@ -315,7 +316,7 @@ class BillingService extends BaseService
             'query' => $params,
         ];
 
-        self::validateOption($apiName, $option, 'query');
+        self::validateOption($option, self::$jsonSchema[$apiName], 'query');
         // prepare params to send
         # set service call product Id
         $params['scProductId'] = self::$serviceProductId[$apiName];
@@ -346,7 +347,7 @@ class BillingService extends BaseService
             $paramKey => $params,
         ];
 
-        self::validateOption($apiName, $option, $paramKey);
+        self::validateOption($option, self::$jsonSchema[$apiName], $paramKey);
         # set service call product Id
         $option[$paramKey]['scProductId'] = self::$serviceProductId[$apiName];
 
@@ -379,7 +380,7 @@ class BillingService extends BaseService
             $paramKey => $params,
         ];
 
-         self::validateOption($apiName, $option, $paramKey);
+         self::validateOption($option, self::$jsonSchema[$apiName], $paramKey);
         # prepare params to send
         # set service call product Id
         $option[$paramKey]['scProductId'] = self::$serviceProductId[$apiName];
@@ -415,7 +416,7 @@ class BillingService extends BaseService
             $paramKey => $params, // set query param for validation
         ];
 
-        self::validateOption($apiName, $option, $paramKey);
+        self::validateOption($option, self::$jsonSchema[$apiName], $paramKey);
 
         // prepare params to send
         $withBracketParams = [];
@@ -457,7 +458,7 @@ class BillingService extends BaseService
             $paramKey => $params,
         ];
 
-        self::validateOption($apiName, $option, $paramKey);
+        self::validateOption($option, self::$jsonSchema[$apiName], $paramKey);
         # prepare params to send
         # set service call product Id
         $option[$paramKey]['scProductId'] = self::$serviceProductId[$apiName];
@@ -489,7 +490,7 @@ class BillingService extends BaseService
             'query' => $params,
         ];
 
-         self::validateOption($apiName, $option);
+         self::validateOption($option, self::$jsonSchema[$apiName]);
         # prepare params to send
         # set service call product Id
         $option['query']['scProductId'] = self::$serviceProductId[$apiName];
@@ -525,7 +526,7 @@ class BillingService extends BaseService
             'headers' => $this->header,
             'query' => $params,
         ];
-         self::validateOption($apiName, $option);
+         self::validateOption($option, self::$jsonSchema[$apiName]);
         # prepare params to send
         # set service call product Id
         $option['query']['scProductId'] = self::$serviceProductId[$apiName];
@@ -559,7 +560,7 @@ class BillingService extends BaseService
             'query' => $params,
         ];
 
-         self::validateOption($apiName, $option);
+         self::validateOption($option, self::$jsonSchema[$apiName]);
         # prepare params to send
         # set service call product Id
         $option['query']['scProductId'] = self::$serviceProductId[$apiName];
@@ -594,7 +595,7 @@ class BillingService extends BaseService
             'query' => $params,
         ];
 
-         self::validateOption($apiName, $option);
+         self::validateOption($option, self::$jsonSchema[$apiName]);
         # prepare params to send
         # set service call product Id
         $option['query']['scProductId'] = self::$serviceProductId[$apiName];
@@ -626,7 +627,7 @@ class BillingService extends BaseService
             'query' => $params,
         ];
 
-         self::validateOption($apiName, $option);
+         self::validateOption($option, self::$jsonSchema[$apiName]);
         # prepare params to send
         # set service call product Id
         $option['query']['scProductId'] = self::$serviceProductId[$apiName];
@@ -659,7 +660,7 @@ class BillingService extends BaseService
             'query' => $params,
         ];
 
-         self::validateOption($apiName, $option);
+         self::validateOption($option, self::$jsonSchema[$apiName]);
         # prepare params to send
         # set service call product Id
         $option['query']['scProductId'] = self::$serviceProductId[$apiName];
@@ -692,7 +693,7 @@ class BillingService extends BaseService
             $paramKey => $params,
         ];
 
-        self::validateOption($apiName, $option, $paramKey);
+        self::validateOption($option, self::$jsonSchema[$apiName], $paramKey);
         # prepare params to send
         # set service call product Id
         $option[$paramKey]['scProductId'] = self::$serviceProductId[$apiName];
@@ -740,7 +741,7 @@ class BillingService extends BaseService
             'query' => $params,
         ];
 
-         self::validateOption($apiName, $option);
+         self::validateOption($option, self::$jsonSchema[$apiName]);
         # prepare params to send
         # set service call product Id
         $option['query']['scProductId'] = self::$serviceProductId[$apiName];
@@ -775,7 +776,7 @@ class BillingService extends BaseService
             'headers' => $header,
             'query' => $params,
         ];
-         self::validateOption($apiName, $option);
+         self::validateOption($option, self::$jsonSchema[$apiName]);
         # prepare params to send
         # set service call product Id
         $option['query']['scProductId'] = self::$serviceProductId[$apiName];
@@ -812,7 +813,7 @@ class BillingService extends BaseService
             'query' => $params,
         ];
 
-         self::validateOption($apiName, $option);
+         self::validateOption($option, self::$jsonSchema[$apiName]);
         # prepare params to send
         # set service call product Id
         $option['query']['scProductId'] = self::$serviceProductId[$apiName];
@@ -832,7 +833,7 @@ class BillingService extends BaseService
         );
     }
 
-    public function listSettlements ($params) {
+    public function listSettlements($params) {
         $apiName = 'listSettlements';
         $optionHasArray = false;
         array_walk_recursive($params, 'self::prepareData');
@@ -841,7 +842,7 @@ class BillingService extends BaseService
             'headers' => $this->header,
             'query' => $params,
         ];
-         self::validateOption($apiName, $option);
+         self::validateOption($option, self::$jsonSchema[$apiName]);
         # prepare params to send
         # set service call product Id
         $option['query']['scProductId'] = self::$serviceProductId[$apiName];
@@ -861,7 +862,7 @@ class BillingService extends BaseService
         );
     }
 
-    public function addAutoSettlement ($params) {
+    public function addAutoSettlement($params) {
         $apiName = 'addAutoSettlement';
         $optionHasArray = false;
         array_walk_recursive($params, 'self::prepareData');
@@ -870,7 +871,7 @@ class BillingService extends BaseService
             'headers' => $this->header,
             'query' => $params,
         ];
-         self::validateOption($apiName, $option);
+         self::validateOption($option, self::$jsonSchema[$apiName]);
         # prepare params to send
         # set service call product Id
         $option['query']['scProductId'] = self::$serviceProductId[$apiName];
@@ -890,7 +891,7 @@ class BillingService extends BaseService
         );
     }
 
-    public function removeAutoSettlement  ($params) {
+    public function removeAutoSettlement($params) {
         $apiName = 'removeAutoSettlement';
         $optionHasArray = false;
         array_walk_recursive($params, 'self::prepareData');
@@ -900,7 +901,7 @@ class BillingService extends BaseService
             'query' => $params,
         ];
 
-         self::validateOption($apiName, $option);
+         self::validateOption($option, self::$jsonSchema[$apiName]);
         # prepare params to send
         # set service call product Id
         $option['query']['scProductId'] = self::$serviceProductId[$apiName];
@@ -942,7 +943,7 @@ class BillingService extends BaseService
             $paramKey => $params,
         ];
 
-        self::validateOption($apiName, $option, $paramKey);
+        self::validateOption($option, self::$jsonSchema[$apiName], $paramKey);
         $option[$paramKey]['data'] = json_encode($params['data']);
 
         # set service call product Id
@@ -977,7 +978,7 @@ class BillingService extends BaseService
             $paramKey => $params,
         ];
 
-        self::validateOption($apiName, $option, $paramKey);
+        self::validateOption($option, self::$jsonSchema[$apiName], $paramKey);
         # prepare params to send
         # set service call product Id
         $option[$paramKey]['scProductId'] = self::$serviceProductId[$apiName];
@@ -1012,7 +1013,7 @@ class BillingService extends BaseService
             $paramKey => $params,
         ];
 
-        self::validateOption($apiName, $option, $paramKey);
+        self::validateOption($option, self::$jsonSchema[$apiName], $paramKey);
         # prepare params to send
         # set service call product Id
         $option[$paramKey]['scProductId'] = self::$serviceProductId[$apiName];
@@ -1048,7 +1049,7 @@ class BillingService extends BaseService
             'headers' => $header,
             'query' => $params, // set query param for validation
         ];
-        self::validateOption($apiName, $option, 'query');
+        self::validateOption($option, self::$jsonSchema[$apiName], 'query');
 
         // prepare params to send
         $withBracketParams = [];
@@ -1089,7 +1090,7 @@ class BillingService extends BaseService
             'headers' => $header,
             'query' => $params, // set query param for validation
         ];
-        self::validateOption($apiName, $option, 'query');
+        self::validateOption($option, self::$jsonSchema[$apiName], 'query');
 
         // prepare params to send
         $withBracketParams = [];
@@ -1140,7 +1141,7 @@ class BillingService extends BaseService
             'headers' => $header,
             'query' => $params, // set query param for validation
         ];
-        self::validateOption($apiName, $option, 'query');
+        self::validateOption($option, self::$jsonSchema[$apiName], 'query');
 
         // prepare params to send
         $withBracketParams = [];
@@ -1200,7 +1201,7 @@ class BillingService extends BaseService
             'query' => $params,
         ];
 
-        self::validateOption($apiName, $option, 'query');
+        self::validateOption($option, self::$jsonSchema[$apiName], 'query');
 
         # set service call product Id
         $params['scProductId'] = self::$serviceProductId[$apiName];
@@ -1227,7 +1228,7 @@ class BillingService extends BaseService
             'headers' => $header,
             'query' => $params, // set query param for validation
         ];
-        self::validateOption($apiName, $option, 'query');
+        self::validateOption($option, self::$jsonSchema[$apiName], 'query');
 
         // prepare params to send
         $withBracketParams = [];
@@ -1270,7 +1271,7 @@ class BillingService extends BaseService
             $paramKey => $params,
         ];
 
-        self::validateOption($apiName, $option, $paramKey);
+        self::validateOption($option, self::$jsonSchema[$apiName], $paramKey);
         # prepare params to send
         # set service call product Id
         $option[$paramKey]['scProductId'] = self::$serviceProductId[$apiName];
@@ -1301,7 +1302,7 @@ class BillingService extends BaseService
             $paramKey => $params,
         ];
 
-        self::validateOption($apiName, $option, $paramKey);
+        self::validateOption($option, self::$jsonSchema[$apiName], $paramKey);
         # prepare params to send
         # set service call product Id
         $option[$paramKey]['scProductId'] = self::$serviceProductId[$apiName];
@@ -1332,7 +1333,7 @@ class BillingService extends BaseService
             $paramKey => $params,
         ];
 
-        self::validateOption($apiName, $option, $paramKey);
+        self::validateOption($option, self::$jsonSchema[$apiName], $paramKey);
         # prepare params to send
         # set service call product Id
         $option[$paramKey]['scProductId'] = self::$serviceProductId[$apiName];
@@ -1363,7 +1364,7 @@ class BillingService extends BaseService
             $paramKey => $params,
         ];
 
-        self::validateOption($apiName, $option, $paramKey);
+        self::validateOption($option, self::$jsonSchema[$apiName], $paramKey);
         # prepare params to send
         # set service call product Id
         $option[$paramKey]['scProductId'] = self::$serviceProductId[$apiName];
@@ -1394,7 +1395,7 @@ class BillingService extends BaseService
             $paramKey => $params,
         ];
 
-        self::validateOption($apiName, $option, $paramKey);
+        self::validateOption($option, self::$jsonSchema[$apiName], $paramKey);
         # prepare params to send
         # set service call product Id
         $option[$paramKey]['scProductId'] = self::$serviceProductId[$apiName];
@@ -1425,7 +1426,7 @@ class BillingService extends BaseService
             $paramKey => $params,
         ];
 
-        self::validateOption($apiName, $option, $paramKey);
+        self::validateOption($option, self::$jsonSchema[$apiName], $paramKey);
         # prepare params to send
         # set service call product Id
         $option[$paramKey]['scProductId'] = self::$serviceProductId[$apiName];
