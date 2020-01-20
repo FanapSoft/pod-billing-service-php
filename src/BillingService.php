@@ -32,6 +32,7 @@ class BillingService extends BaseService
         self::$serviceProductId = require __DIR__ . '/../config/serviceProductId.php';
         self::$baseUri = self::$config[self::$serverType];
         self::$serviceProductId = self::$serviceProductId[self::$serverType];
+
     }
 
     public function issueInvoice($params) {
@@ -39,12 +40,8 @@ class BillingService extends BaseService
         $header = $this->header;
         array_walk_recursive($params, 'self::prepareData');
 
-//        $header = array_filter(array_merge($this->header, (array) $header), 'self::filterNotEmptyValue');
-        if (isset($params['ott'])) {
-            $header['_ott_'] = $params['ott'];
-            unset($params['ott']);
-        }
-//        $paramKey = 'query';
+        // send ott in header
+        $header['_ott_'] = isset($params['ott']) ? $params['ott'] : '';
 
         $relativeUri = self::$billingApi[$apiName]['subUri'];
         $option = [
@@ -52,6 +49,7 @@ class BillingService extends BaseService
             'query' => $params, // set query param for validation
         ];
         self::validateOption($option, self::$jsonSchema[$apiName], 'query');
+        unset($option['query']['ott']); // send ott in header
 
         // prepare params to send
         $withBracketParams = [];
@@ -202,7 +200,7 @@ class BillingService extends BaseService
             $method,
             self::$billingApi[$apiName]['subUri'],
             $option,
-            true,
+            false,
             $optionHasArray);
     }
 
@@ -585,17 +583,17 @@ class BillingService extends BaseService
         $header = $this->header;
         array_walk_recursive($params, 'self::prepareData');
 
-        if (isset($params['ott'])) {
-            $header['_ott_'] = $params['ott'];
-            unset($params['ott']);
-        }
+        // send ott in header
+        $header['_ott_'] = isset($params['ott']) ? $params['ott'] : '';
 
         $option = [
             'headers' => $header,
             'query' => $params,
         ];
 
-         self::validateOption($option, self::$jsonSchema[$apiName]);
+        self::validateOption($option, self::$jsonSchema[$apiName]);
+        unset($option['query']['ott']); // send ott in header
+
         # prepare params to send
         # set service call product Id
         $option['query']['scProductId'] = self::$serviceProductId[$apiName];
@@ -615,12 +613,11 @@ class BillingService extends BaseService
     public function payAnyInvoiceByCredit($params) {
         $apiName = 'payAnyInvoiceByCredit';
         $header = $this->header;
+
         array_walk_recursive($params, 'self::prepareData');
 
-        if (isset($params['ott'])) {
-            $header['_ott_'] = $params['ott'];
-            unset($params['ott']);
-        }
+        // send ott in header
+        $header['_ott_'] = isset($params['ott']) ? $params['ott'] : '';
 
         $option = [
             'headers' => $header,
@@ -628,6 +625,8 @@ class BillingService extends BaseService
         ];
 
          self::validateOption($option, self::$jsonSchema[$apiName]);
+        unset($option['query']['ott']); // send ott in header
+
         # prepare params to send
         # set service call product Id
         $option['query']['scProductId'] = self::$serviceProductId[$apiName];
@@ -731,10 +730,8 @@ class BillingService extends BaseService
         $header = $this->header;
         array_walk_recursive($params, 'self::prepareData');
 
-        if (isset($params['ott'])) {
-            $header['_ott_'] = $params['ott'];
-            unset($params['ott']);
-        }
+        // send ott in header
+        $header['_ott_'] = isset($params['ott']) ? $params['ott'] : '';
 
         $option = [
             'headers' => $header,
@@ -742,9 +739,12 @@ class BillingService extends BaseService
         ];
 
          self::validateOption($option, self::$jsonSchema[$apiName]);
+        unset($option['query']['ott']); // send ott in header
+
         # prepare params to send
         # set service call product Id
         $option['query']['scProductId'] = self::$serviceProductId[$apiName];
+
         if (isset($params['scVoucherHash'])) {
             $option['withoutBracketParams'] =  $option['query'];
             $optionHasArray = true;
@@ -767,16 +767,16 @@ class BillingService extends BaseService
         $header = $this->header;
         array_walk_recursive($params, 'self::prepareData');
 
-        if (isset($params['ott'])) {
-            $header['_ott_'] = $params['ott'];
-            unset($params['ott']);
-        }
+        // send ott in header
+        $header['_ott_'] = isset($params['ott']) ? $params['ott'] : '';
 
         $option = [
             'headers' => $header,
             'query' => $params,
         ];
          self::validateOption($option, self::$jsonSchema[$apiName]);
+        unset($option['query']['ott']); // send ott in header
+
         # prepare params to send
         # set service call product Id
         $option['query']['scProductId'] = self::$serviceProductId[$apiName];
@@ -803,10 +803,8 @@ class BillingService extends BaseService
         $header = $this->header;
         array_walk_recursive($params, 'self::prepareData');
 
-        if (isset($params['ott'])) {
-            $header['_ott_'] = $params['ott'];
-            unset($params['ott']);
-        }
+        // send ott in header
+        $header['_ott_'] = isset($params['ott']) ? $params['ott'] : '';
 
         $option = [
             'headers' => $header,
@@ -814,6 +812,8 @@ class BillingService extends BaseService
         ];
 
          self::validateOption($option, self::$jsonSchema[$apiName]);
+        unset($option['query']['ott']); // send ott in header
+
         # prepare params to send
         # set service call product Id
         $option['query']['scProductId'] = self::$serviceProductId[$apiName];
@@ -933,10 +933,8 @@ class BillingService extends BaseService
         $paramKey = ($method == 'GET') ? 'query' : 'form_params';
         $relativeUri = self::$billingApi[$apiName]['subUri'];
 
-        if (isset($params['ott'])) {
-            $header['_ott_'] = $params['ott'];
-            unset($params['ott']);
-        }
+        // send ott in header
+        $header['_ott_'] = isset($params['ott']) ? $params['ott'] : '';
 
         $option = [
             'headers' => $header,
@@ -944,6 +942,8 @@ class BillingService extends BaseService
         ];
 
         self::validateOption($option, self::$jsonSchema[$apiName], $paramKey);
+        unset($option[$paramKey]['ott']); // send ott in header
+
         $option[$paramKey]['data'] = json_encode($params['data']);
 
         # set service call product Id
@@ -1191,10 +1191,8 @@ class BillingService extends BaseService
         array_walk_recursive($params, 'self::prepareData');
 //        $paramKey = self::$billingApi[$apiName]['method'] == 'GET' ? 'query' : 'form_params';
 
-        if (isset($params['ott'])) {
-            $header['_ott_'] = $params['ott'];
-            unset($params['ott']);
-        }
+        // send ott in header
+        $header['_ott_'] = isset($params['ott']) ? $params['ott'] : '';
 
         $option = [
             'headers' => $header,
@@ -1202,6 +1200,7 @@ class BillingService extends BaseService
         ];
 
         self::validateOption($option, self::$jsonSchema[$apiName], 'query');
+        unset($option['query']['ott']); // send ott in header
 
         # set service call product Id
         $params['scProductId'] = self::$serviceProductId[$apiName];

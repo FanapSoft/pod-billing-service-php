@@ -115,17 +115,17 @@
                     "description": "نرخ مالیات برای این خرید که برای تمام آیتم های فاکتور اعمال می شود. اگر مقداری ارسال نشود مقدار مالیات بر ارزش افزوده پیش فرض محاسبه می شود"
                 },
                 "verificationNeeded": {
-                    "type": "string",
+                    "type": ["string", "boolean"],
                     "title": "پرداخت دومرحله ای",
                     "description": "true یا false"
                 },
                 "verifyAfterTimeout": {
-                    "type": "string",
+                    "type": ["string", "boolean"],
                     "title": "تایید خودکار فاکتور در پرداخت دومرحله ای",
                     "description": "true یا false"
                 },
                 "preview": {
-                    "type": "string",
+                    "type": ["string", "boolean"],
                     "title": "پیش نمایش فاکتور (در سیستم ثبت نمی گردد)",
                     "description": "true یا false"
                 },
@@ -134,17 +134,17 @@
                     "title": "متادیتا برای فاکتور"
                 },
                 "safe": {
-                    "type": "string",
+                    "type": ["string", "boolean"],
                     "title": "پرداخت فاکتور به روش امن",
                     "description": "true یا false"
                 },
                 "postVoucherEnabled": {
-                    "type": "string",
+                    "type": ["string", "boolean"],
                     "title": "امکان اضافه کردن ووچر بعد از صدر فاکتور",
                     "description": "true یا false"
                 },
                 "hasEvent": {
-                    "type": "string",
+                    "type": ["string", "boolean"],
                     "title": "آیا فاکتور رویداد دارد",
                     "description": "true یا false"
                 },
@@ -169,7 +169,7 @@
                     "title": "توضیحات رویداد"
                 },
                 "eventMetadata": {
-                    "type": "array",
+                    "type": "string",
                     "title": "اطلاعات جانبی رویداد",
                     "description": "باید به فرمت json باشد. example 1 : {bussinessName=’test’, bussinessURL=’www.test.com’, bussinessIcon=’null’, actionList=[{command=’GET https://www.googleapis.com/calendar/v3/calendars/calendarId/events\n?privateExtendedProperty=petsAllowed%3Dyes\n&sharedExtendedProperty=createdBy%3DmyApp’, commandType={code=’1’, value=’GET’}}], metaData={\"petsAllowed\":\"yes\"}}\n\n"
                 },
@@ -190,11 +190,15 @@
                 "scApiKey": {
                     "type": "string",
                     "title": "توکن برای فراخوانی سرویس کال"
+                },
+                "ott": {
+                    "type": "string"
                 }
             },
             "required": [
                 "guildCode",
-                "productList"
+                "productList",
+                "ott"
             ],
             "additionalProperties": false
         }
@@ -298,7 +302,7 @@
                     "description": "نرخ مالیات برای این خرید که برای تمام آیتم های فاکتور اعمال می شود. اگر مقداری ارسال نشود مقدار مالیات بر ارزش افزوده پیش فرض محاسبه می شود"
                 },
                 "verificationNeeded": {
-                    "type": "string",
+                    "type": ["string", "boolean"],
                     "title": "پرداخت دومرحله ای",
                     "description": "true یا false"
                 },
@@ -378,22 +382,22 @@
                     "pattern_description": "تاریخ به صورت yyyy/mm/dd وارد شود"
                 },
                 "isCanceled": {
-                    "type": "string",
+                    "type": ["string", "boolean"],
                     "title": "کنسلی",
                     "description": "true/false"
                 },
                 "isPayed": {
-                    "type": "string",
+                    "type": ["string", "boolean"],
                     "title": "پرداخت شده",
                     "description": "true/false"
                 },
                 "isClosed": {
-                    "type": "string",
+                    "type": ["string", "boolean"],
                     "title": "بسته شده",
                     "description": "true/false"
                 },
                 "isWaiting": {
-                    "type": "string",
+                    "type": ["string", "boolean"],
                     "title": "منتظر پرداخت",
                     "description": "true/false"
                 },
@@ -627,12 +631,12 @@
                 "delegationId": {
                     "type": "array",
                     "items": {
-                        "type": "string"
+                        "type": "integer"
                     },
                     "title": "شناسه اعتبار"
                 },
                 "forceDelegation": {
-                    "type": "string",
+                    "type": ["string", "boolean"],
                     "title": "پرداخت فقط از طریق اعتبار",
                     "description": "true/false"
                 },
@@ -695,12 +699,12 @@
                     "title": "تعداد رکورد در هر صفحه"
                 },
                 "isPayed": {
-                    "type": "string",
+                    "type": ["string", "boolean"],
                     "title": "پرداخت شده",
                     "description": "true/false"
                 },
-                "isCancelled": {
-                    "type": "string",
+                "isCanceled": {
+                    "type": ["string", "boolean"],
                     "title": "کنسل شده",
                     "description": "true/false"
                 },
@@ -774,22 +778,22 @@
                     "pattern_description": "تاریخ به صورت yyyy/mm/dd وارد شود"
                 },
                 "isCanceled": {
-                    "type": "string",
+                    "type": ["string", "boolean"],
                     "title": "کنسلی",
                     "description": "true/false"
                 },
                 "isPayed": {
-                    "type": "string",
+                    "type": ["string", "boolean"],
                     "title": "پرداخت شده",
                     "description": "true/false"
                 },
                 "isClosed": {
-                    "type": "string",
+                    "type": ["string", "boolean"],
                     "title": "بسته شده",
                     "description": "true/false"
                 },
                 "isWaiting": {
-                    "type": "string",
+                    "type": ["string", "boolean"],
                     "title": "منتظر پرداخت",
                     "description": "true/false"
                 },
@@ -1047,7 +1051,8 @@
                 }
             },
             "required": [
-                "id"
+                "id",
+                "invoiceItemList"
             ],
             "additionalProperties": false
         }
@@ -1374,7 +1379,6 @@
                     "title": "کد وضعیت"
                 },
                 "serviceUrl": {
-                    "format": "uri",
                     "type": "string",
                     "title": "آدرس سرویس"
                 },
@@ -1453,13 +1457,16 @@
                     }
                 },
                 "forceDelegation": {
-                    "type": "string"
+                    "type": ["string", "boolean"]
                 },
                 "wallet": {
                     "type": "string"
+                },
+                "ott": {
+                    "type": "string"
                 }
             },
-            "required": ["invoiceId"],
+            "required": ["invoiceId", "ott"],
             "additionalProperties": false
         }
     },
@@ -1518,13 +1525,16 @@
                     }
                 },
                 "forceDelegation": {
-                    "type": "string"
+                    "type": ["string", "boolean"]
                 },
                 "wallet": {
                     "type": "string"
+                },
+                "ott": {
+                    "type": "string"
                 }
             },
-            "required": ["invoiceId", "wallet"],
+            "required": ["invoiceId", "wallet", "ott"],
             "additionalProperties": false
         }
     },
@@ -1577,7 +1587,7 @@
                     "title": "نام خانوادگی"
                 },
                 "sheba": {
-                    "type": "string",
+                    "pattern": "^(\\d)(?!\\1{23}$)\\d{23}$",
                     "title": "کد شبا حساب بانکی",
                     "description": "شبا که به صورت عددی وارد می شود. (بدون IR)"
                 },
@@ -1599,10 +1609,14 @@
                 "scApiKey": {
                     "type": "string",
                     "title": "توکن برای فراخوانی سرویس کال"
+                },
+                "ott": {
+                    "type": "string"
                 }
             },
             "required": [
-                "amount"
+                "amount",
+                "ott"
             ],
             "additionalProperties": false
         }
@@ -1643,7 +1657,7 @@
                     "title": "نام خانوادگی"
                 },
                 "sheba": {
-                    "type": "string",
+                    "pattern": "^(\\d)(?!\\1{23}$)\\d{23}$",
                     "title": "کد شبا حساب بانکی",
                     "description": "شبا که به صورت عددی وارد می شود. (بدون IR)"
                 },
@@ -1679,9 +1693,12 @@
                 "scApiKey": {
                     "type": "string",
                     "title": "توکن برای فراخوانی سرویس کال"
+                },
+                "ott": {
+                    "type": "string"
                 }
             },
-            "required": ["amount", "guildCode"],
+            "required": ["amount", "guildCode", "ott"],
             "additionalProperties": false
         }
     },
@@ -1762,9 +1779,12 @@
                 "scApiKey": {
                     "type": "string",
                     "title": "توکن برای فراخوانی سرویس کال"
+                },
+                "ott": {
+                    "type": "string"
                 }
             },
-            "required": ["amount", "guildCode", "toolCode", "toolId"],
+            "required": ["amount", "guildCode", "toolCode", "toolId", "ott"],
             "additionalProperties": false
         }
     },
@@ -1908,7 +1928,7 @@
                     "title": "نام خانوادگی"
                 },
                 "sheba": {
-                    "type": "string",
+                    "pattern": "^(\\d)(?!\\1{23}$)\\d{23}$",
                     "title": "کد شبا حساب بانکی",
                     "description": "شبا که به صورت عددی وارد می شود. (بدون IR)"
                 },
@@ -1923,7 +1943,7 @@
                     "description": "به طور مثال : IRR یا USD"
                 },
                 "instant": {
-                    "type": "string",
+                    "type": ["string", "boolean"],
                     "title": "تسویه حساب خودکار فوری",
                     "description": "در صورت true بودن تسویه حساب خودکار فوری و در صورت false بودن تسویه حساب خودکار فعال می شود "
                 },
@@ -2051,12 +2071,12 @@
                             "description": "نرخ مالیات برای این خرید که برای تمام آیتم های فاکتور اعمال می شود. اگر مقداری ارسال نشود مقدار مالیات بر ارزش افزوده پیش فرض محاسبه می شود"
                         },
                         "verificationNeeded": {
-                            "type": "string",
+                            "type": ["string", "boolean"],
                             "title": "پرداخت دومرحله ای",
                             "description": "true یا false"
                         },
                         "preview": {
-                            "type": "string",
+                            "type": ["string", "boolean"],
                             "title": "پیش نمایش فاکتور (در سیستم ثبت نمی گردد)",
                             "description": "true یا false"
                         },
@@ -2235,7 +2255,7 @@
                     "title": "کد تفویض برای اشاره به یک تفویض مشخص"
                 },
                 "forceDelegation": {
-                    "type": "string",
+                    "type": ["string", "boolean"],
                     "title": "پرداخت فقط از طریق تفویض"
                 },
                 "scVoucherHash": {
@@ -2249,9 +2269,12 @@
                 "scApiKey": {
                     "type": "string",
                     "title": "توکن برای فراخوانی سرویس کال"
+                },
+                "ott": {
+                    "type": "string"
                 }
             },
-            "required": ["data"],
+            "required": ["data", "ott"],
             "additionalProperties": false
         }
     },
@@ -2672,7 +2695,15 @@
                                 "type": "string"
                             },
                             "hash": {
-                                "type": "string"
+                                "oneOf": [
+                                    {"type": "string"},
+                                    {
+                                        "type": "array",
+                                        "items": {
+                                            "type": "string"
+                                        }
+                                    }
+                                ]
                             }
                         },
                         "required": ["count", "amount", "name", "description"],
@@ -2748,7 +2779,8 @@
                 "vouchers": {
                     "type": "array",
                     "items": {
-                        "properties":{
+                        "type": "array",
+                        "properties": {
                             "count": {
                                 "type": "integer"
                             },
@@ -2762,11 +2794,19 @@
                                 "type": "string"
                             },
                             "hash": {
-                                "type": "string"
+                                "oneOf": [
+                                    {"type": "string"},
+                                    {
+                                        "type": "array",
+                                        "items": {
+                                            "type": "string"
+                                        }
+                                    }
+                                ]
                             }
                         },
-                    "required": ["count", "amount", "name", "description"],
-                    "additionalProperties": false
+                        "required": ["count", "amount", "name", "description"],
+                        "additionalProperties": false
                     }
                 },
                 "limitedConsumerId": {
@@ -2858,7 +2898,15 @@
                                 "type": "string"
                             },
                             "hash": {
-                                "type": "string"
+                                "oneOf": [
+                                    {"type": "string"},
+                                    {
+                                        "type": "array",
+                                        "items": {
+                                            "type": "string"
+                                        }
+                                    }
+                                ]
                             }
                         },
                         "required": ["count", "name", "description"],
@@ -2929,7 +2977,7 @@
                     }
                 },
                 "preview": {
-                    "type": "string"
+                    "type": ["string", "boolean"]
                 },
                 "scVoucherHash": {
                     "type": "array",
@@ -2942,9 +2990,12 @@
                 "scApiKey": {
                     "type": "string",
                     "title": "توکن برای فراخوانی سرویس کال"
+                },
+                "ott": {
+                    "type": "string"
                 }
             },
-            "required": ["invoiceId", "voucherHash"],
+            "required": ["invoiceId", "voucherHash", "ott"],
             "additionalProperties": false
         }
     },
@@ -3037,10 +3088,10 @@
                     "type": "number"
                 },
                 "active": {
-                    "type": "string"
+                    "type": ["string", "boolean"]
                 },
                 "used": {
-                    "type": "string"
+                    "type": ["string", "boolean"]
                 },
                 "offset": {
                     "type": "integer",
@@ -3188,7 +3239,7 @@
                     "type": "string"
                 },
                 "onDemand": {
-                    "type": "string"
+                    "type": ["string", "boolean"]
                 },
                 "minAmount": {
                     "type": "number"
@@ -3303,7 +3354,7 @@
                     "type": "number"
                 },
                 "onDemand": {
-                    "type": "string"
+                    "type": ["string", "boolean"]
                 },
                 "minAmount": {
                     "type": "number"
@@ -3327,7 +3378,7 @@
                     "title": "توکن برای فراخوانی سرویس کال"
                 }
             },
-            "required": ["id", "username", "privateKey", "depositNumber", "onDemand", "minAmount", "maxAmount", "wallet"],
+            "required": ["id"],
             "additionalProperties": false
         }
     },
