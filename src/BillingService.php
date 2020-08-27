@@ -1,10 +1,5 @@
 <?php
 /**
- * Created by PhpStorm.
- * User :  keshtgar
- * Date :  6/19/19
- * Time : 12:29 PM
- *
  * $baseInfo BaseInfo
  */
 namespace Pod\Billing\Service;
